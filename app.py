@@ -9,6 +9,7 @@ from resources.UserResources import Login
 from resources.UserResources import Einstellungprofil
 from resources.UserContact import Contact
 
+
 #flask konfiguration
 app = Flask(__name__)
 CORS(app)  # Aktiviert CORS für alle Domains und Routen
