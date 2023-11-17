@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 #import von den klassen
 from resources.UserResources import Login
-from resources.UserResources import Einstellungprofil
+
 
 
 #flask konfiguration
@@ -18,7 +18,6 @@ api = Api(app)
 
 #hinzufügen der routen
 api.add_resource(Login, '/login')
-api.add_resource(Einstellungprofil, '/einstellungProfil')
 
 if __name__ == '__main__':
     app.run(debug=True)
