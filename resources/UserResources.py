@@ -16,22 +16,22 @@ class Settingprofil(Resource):
     def post(self):
         data = request.json
 
-        vorname = data.get('vorname')  # Empfängt die E-Mail aus dem Request
-        nachname = data.get('nachname')
+        firstname = data.get('firstname')  # Empfängt die E-Mail aus dem Request
+        lastname= data.get('lastname')
         branche = data.get('branche')  # Empfängt die E-Mail aus dem Request
-        sprache = data.get('sprache')
+        language= data.get('language')
         password = data.get('password')  # Empfängt die E-Mail aus dem Request
-        ziele = data.get('ziele')
-        beschreibung = data.get('beschreibung')
+        goals = data.get('goals')
+        description = data.get('description')
 
 
-        print(f"Empfangene vorname: {vorname}")
-        print(f"Empfangenes nachname: {nachname}")
+        print(f"Empfangene vorname: {firstname}")
+        print(f"Empfangenes nachname: {lastname}")
         print(f"Empfangene branche: {branche}")
-        print(f"Empfangenes sprache: {sprache}")
+        print(f"Empfangenes sprache: {language}")
         print(f"Empfangene password: {password}")
-        print(f"Empfangenes ziele: {ziele}")
-        print(f"Empfangene beschreibung: {beschreibung}")
+        print(f"Empfangenes ziele: {goals}")
+        print(f"Empfangene beschreibung: {description}")
 
 
 
