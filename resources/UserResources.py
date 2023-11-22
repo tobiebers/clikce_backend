@@ -12,7 +12,7 @@ class Login(Resource):
 
         return {'message': 'Daten empfangen', 'data': data}, 200
 
-class Einstellungprofil(Resource):
+class Settingprofil(Resource):
     def post(self):
         data = request.json
 
