@@ -4,20 +4,20 @@ from flask_restful import Resource, Api
 class Contact(Resource):
     def post(self):
         data = request.json
-        first_name = data.get('vorname')
-        last_name = data.get('nachname')
+        first_name = data.get('firstName')
+        last_name = data.get('lastName')
         email = data.get('email')
-        phonenumber = data.get('handynummer')
-        adress = data.get('adresse')
-        country = data.get('land')
-        password = data.get('passwort')
+        phone_number = data.get('phoneNumber')
+        address = data.get('address')
+        country = data.get('country')
+        password = data.get('password')
 
-        print(f"Vorname: {first_name}")
-        print(f"Nachname: {last_name}")
-        print(f"E-Mail: {email}")
-        print(f"Telefon Nummer: {phonenumber}")
-        print(f"Adresse: {adress}")
-        print(f"Land: {country}")
-        print(f"Passwort: {password}")
+        print(f"First Name: {first_name}")
+        print(f"Last Name: {last_name}")
+        print(f"Email: {email}")
+        print(f"Phone Number: {phone_number}")
+        print(f"Address: {address}")
+        print(f"Country: {country}")
+        print(f"Password: {password}")
 
-        return {'message': 'Daten empfangen', 'data': data}, 200
+        return {'message': 'Data received', 'data': data}, 200
