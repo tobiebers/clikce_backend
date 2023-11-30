@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 #import von den klassen
-from resources.UserResources import Login
+from resources.UserResources import Login, SubmitAnswers
 from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
@@ -21,5 +21,8 @@ api = Api(app)
 api.add_resource(Login, '/login')
 api.add_resource(Settingprofil, '/settingProfil')
 api.add_resource(Contact, '/contact')
+api.add_resource(SubmitAnswers, '/submit-answers')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

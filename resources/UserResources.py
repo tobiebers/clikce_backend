@@ -12,6 +12,12 @@ class Login(Resource):
 
         return {'message': 'Daten empfangen', 'data': data}, 200
 
+class SubmitAnswers(Resource):
+    def post(self):
+        data = request.get_json()
+        print("Erhaltene Antworten:", data)
+        return {'message': 'Antworten erfolgreich erhalten'}, 200
+
 class Settingprofil(Resource):
     def post(self):
         data = request.json
