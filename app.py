@@ -9,6 +9,31 @@ from resources.UserResources import Login, SubmitAnswers
 from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
+#David
+#
+#
+#
+#
+#
+#
+
+#Tim
+#
+#
+#
+#
+#
+#
+
+#Alex
+#
+#
+#
+#
+#
+#
+
+
 
 #flask konfiguration
 app = Flask(__name__)
@@ -22,6 +47,30 @@ api.add_resource(Login, '/login')
 api.add_resource(Settingprofil, '/settingProfil')
 api.add_resource(Contact, '/contact')
 api.add_resource(SubmitAnswers, '/submit-answers')
+
+#David
+#
+#
+#
+#
+#
+#
+
+#Tim
+#
+#
+#
+#
+#
+#
+
+#Alex
+#
+#
+#
+#
+#
+#
 
 
 if __name__ == '__main__':
