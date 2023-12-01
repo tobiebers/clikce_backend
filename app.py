@@ -33,6 +33,14 @@ from resources.UserContact import Contact
 #
 #
 
+#Tobi
+#
+#
+#
+#
+#
+#
+
 
 
 #flask konfiguration
@@ -65,6 +73,14 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 #
 
 #Alex
+#
+#
+#
+#
+#
+#
+
+#Tobi
 #
 #
 #
