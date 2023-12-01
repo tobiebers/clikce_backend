@@ -1,5 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
+from database_clone import DataBase
+from database_clone.DataBase import JsonDatabase
+
+db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
 class Login(Resource):
     def post(self):
@@ -16,7 +20,22 @@ class SubmitAnswers(Resource):
     def post(self):
         data = request.get_json()
         print("Erhaltene Antworten:", data)
+        db.add_answer(data)  # Speichern der Antwort
+        print("Erhaltene Antworten:", data)
         return {'message': 'Antworten erfolgreich erhalten'}, 200
+
+class ChangeAnswers(Resource):
+    def post(self):
+        data = request.get_json()
+        key = data.get('key')  # Der Schlüssel für die Antwort (z.B. "0", "1", "2")
+        new_answer = data.get('answer')  # Der neue Antworttext
+
+        if key is not None and new_answer is not None:
+            db.update_answer(key, new_answer)
+            return {'message': 'Antwort erfolgreich aktualisiert'}, 200
+        else:
+            return {'message': 'Fehlende Daten'}, 400
+
 
 class Settingprofil(Resource):
     def post(self):
@@ -42,3 +61,8 @@ class Settingprofil(Resource):
 
 
         return {'message': 'Daten empfangen', 'data': data}, 200
+
+class FetchAnswers(Resource):
+    def get(self):
+        data = db.get_all_answers()
+        return jsonify(data)

@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 #import von den klassen
-from resources.UserResources import Login, SubmitAnswers
+from resources.UserResources import Login, SubmitAnswers, FetchAnswers, ChangeAnswers
 from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
@@ -81,8 +81,8 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 #
 
 #Tobi
-#
-#
+api.add_resource(FetchAnswers, '/fetch-answers')
+api.add_resource(ChangeAnswers, '/change-answers')
 #
 #
 #
