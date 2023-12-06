@@ -2,8 +2,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS
-
-
+from config import Config
+from flask_mail import Mail
 
 #import von den klassen
 from resources.UserResources import Login, SubmitAnswers, FetchAnswers, ChangeAnswers
@@ -49,7 +49,8 @@ from resources.connect_accounts.ConnectInstagram import ConnectInsta, ConvertCod
 app = Flask(__name__)
 CORS(app)  # Aktiviert CORS für alle Domains und Routen
 api = Api(app)
-
+app.config.from_object(Config)
+mail = Mail(app)
 #app.config.from_object(Config)  # Lädt Konfiguration aus der Config-Klasse
 
 
