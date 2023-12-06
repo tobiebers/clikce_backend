@@ -4,6 +4,7 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 
 
+
 #import von den klassen
 from resources.UserResources import Login, SubmitAnswers, FetchAnswers, ChangeAnswers
 from resources.UserResources import Settingprofil
@@ -34,7 +35,8 @@ from resources.UserContact import Contact
 #
 
 #Tobi
-#
+from resources.connect_accounts.ConnectInstagram import ConnectInsta, ConvertCode, InstagramProfileName, InstagramData
+
 #
 #
 #
@@ -47,6 +49,9 @@ from resources.UserContact import Contact
 app = Flask(__name__)
 CORS(app)  # Aktiviert CORS für alle Domains und Routen
 api = Api(app)
+
+#app.config.from_object(Config)  # Lädt Konfiguration aus der Config-Klasse
+
 
 
 
@@ -83,9 +88,10 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 #Tobi
 api.add_resource(FetchAnswers, '/fetch-answers')
 api.add_resource(ChangeAnswers, '/change-answers')
-#
-#
-#
+api.add_resource(ConnectInsta, '/connect-instagram')
+api.add_resource(ConvertCode, '/convert-code')
+api.add_resource(InstagramProfileName, '/instagram-profile-name')
+api.add_resource(InstagramData, '/instagram-profile-data')
 #
 
 
