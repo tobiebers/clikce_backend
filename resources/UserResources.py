@@ -81,5 +81,16 @@ class FetchAnswers(Resource):
 class FetchCardInfo(Resource):
     def get(self):
         # Annahme: Du speicherst den Text für Abschnitt 1 im Backend
+
+
         section1_text = "176"
-        return jsonify({'section1Text': section1_text})
+        section2_text = "20"
+        section3_text = "190"
+        section4_text = "12"
+
+        return jsonify({
+            'section1Text': section1_text,
+            'section2Text': section2_text,
+            'section3Text': section3_text,
+            'section4Text': section4_text
+        })
