@@ -66,3 +66,20 @@ class FetchAnswers(Resource):
     def get(self):
         data = db.get_all_answers()
         return jsonify(data)
+
+
+
+
+
+
+
+
+
+
+
+
+class FetchCardInfo(Resource):
+    def get(self):
+        # Annahme: Du speicherst den Text für Abschnitt 1 im Backend
+        section1_text = "176"
+        return jsonify({'section1Text': section1_text})
