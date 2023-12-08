@@ -23,3 +23,19 @@ class FetchChart(Resource):
 
         # Verwende jsonify, um das Dictionary als JSON zu formatieren und zurückzugeben
         return jsonify(datensatz)
+
+
+class FetchChartPie(Resource):
+    def get(self):
+        # Annahme: Du speicherst den Text für Abschnitt 1 im Backend
+
+
+        datensatz = {
+            'wertInstagram': 40,
+            'wertFacebook': 30,
+            'wertTikTok': 20,
+            'wertYouTube': 40,
+        }
+
+
+        return jsonify(datensatz)
