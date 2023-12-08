@@ -82,7 +82,6 @@ class FetchCardInfo(Resource):
     def get(self):
         # Annahme: Du speicherst den Text für Abschnitt 1 im Backend
 
-
         section1_text = "176"
         section2_text = "20"
         section3_text = "190"

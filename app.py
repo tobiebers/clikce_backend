@@ -29,7 +29,7 @@ from resources.UserContact import Contact
 #Alex
 
 from resources.UserResources import FetchCardInfo
-#
+from resources.UserDashboard import FetchChart
 #
 #
 #
@@ -80,7 +80,7 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 
 #Alex
 api.add_resource(FetchCardInfo, '/fetch-card-info')
-#
+api.add_resource(FetchChart, '/fetch-chart')
 #
 #
 #
