@@ -31,10 +31,10 @@ class FetchChartPie(Resource):
 
 
         datensatz = {
-            'wertInstagram': 40,
-            'wertFacebook': 30,
-            'wertTikTok': 20,
-            'wertYouTube': 40,
+            'Instagram': 40,
+            'Facebook': 30,
+            'TikTok': 20,
+            'YouTube': 40,
         }
 
 
