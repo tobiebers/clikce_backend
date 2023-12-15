@@ -31,7 +31,7 @@ from resources.UserContact import Contact
 from resources.UserResources import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
-#
+from resources.UserDashboard import FetchRecentInteractions
 #
 
 #Tobi
@@ -52,7 +52,6 @@ api = Api(app)
 app.config.from_object(Config)
 mail = Mail(app)
 #app.config.from_object(Config)  # Lädt Konfiguration aus der Config-Klasse
-
 
 
 
@@ -82,7 +81,7 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 api.add_resource(FetchCardInfo, '/fetch-card-info')
 api.add_resource(FetchChart, '/fetch-chart')
 api.add_resource(FetchChartPie, '/fetch-chart-data')
-#
+api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
 #
 
 #Tobi
