@@ -68,11 +68,13 @@ class FetchRecentInteractions(Resource):
             return jsonify({"error": str(e)})
 
 
+
 class FetchPerformingAccounts(Resource):
     def get(self):
-        datensatz = {
-            'Name' : "David Oji ",
-            'Likes' : 190
-        }
+        nameText = "Daviidoji"
+        likesText = "176"
 
-        return jsonify(datensatz)
+        return ({
+            'nameText': nameText,
+            'likesText': likesText
+        })
