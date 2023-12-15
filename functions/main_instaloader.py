@@ -1,22 +1,30 @@
 import instaloader
 
-# Erstellen Sie eine Instanz von Instaloader
-L = instaloader.Instaloader()
+class InstaloaderClient:
+    def __init__(self):
+        self.loader = instaloader.Instaloader()
 
-# Profile herunterladen
-profile = instaloader.Profile.from_username(L.context, '')
 
-# Informationen zum Profil anzeigen
-print("Profilname:", profile.username)
-print("Follower:", profile.followers)
-print("Gefolgt von:", profile.followees)
 
-# Beiträge herunterladen und Metadaten extrahieren
-for post in profile.get_posts():
-    print("Post:", post.url)
-    print("Likes:", post.likes)
-    print("Datum:", post.date)
-    print("Beschreibung:", post.caption)
+    def display_profile_name(self, profile):
+        print("Profilname:", profile.username)
 
-# Beiträge herunterladen und speichern
-L.download_profile(profile.username, profile_pic_only=False)
+    def display_profile_Follower(self, profile):
+        print("Follower:", profile.followers)
+
+    def display_profile_Followeed(self, profile):
+        print("Gefolgt von:", profile.followees)
+
+
+    def extract_post_metadata(self, profile):
+        for post in profile.get_posts():
+            print("Post:", post.url)
+            print("Likes:", post.likes)
+            print("Datum:", post.date)
+            print("Beschreibung:", post.caption)
+
+# Beispiel für die Verwendung der Klasse
+client = InstaloaderClient()
+username = 'your_username_here'
+
+
