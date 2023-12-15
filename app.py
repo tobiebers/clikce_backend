@@ -11,7 +11,7 @@ from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
 #David
-#
+from resources.UserDashboard import FetchPerformingAccounts
 #
 #
 #
@@ -61,7 +61,7 @@ api.add_resource(Contact, '/contact')
 api.add_resource(SubmitAnswers, '/submit-answers')
 
 #David
-#
+api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
 #
 #
 #

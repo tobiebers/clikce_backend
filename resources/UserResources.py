@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
+from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
@@ -80,10 +81,18 @@ class FetchAnswers(Resource):
 
 class FetchCardInfo(Resource):
     def get(self):
-        # Annahme: Du speicherst den Text für Abschnitt 1 im Backend
+        client = InstaloaderClient()
+        username = 'tobi_ebers'
 
+        # Profil laden
+        profile = client.get_profile(username)
+
+        # Follower abrufen
+        followers = client.get_profile_followers(profile)
+
+        # Angenommen, die anderen Textabschnitte bleiben gleich
         section1_text = "176"
-        section2_text = "20"
+        section2_text = str(followers)
         section3_text = "190"
         section4_text = "12"
 
@@ -93,3 +102,6 @@ class FetchCardInfo(Resource):
             'section3Text': section3_text,
             'section4Text': section4_text
         })
+
+
+

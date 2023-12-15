@@ -66,3 +66,15 @@ class FetchRecentInteractions(Resource):
 
         except Exception as e:
             return jsonify({"error": str(e)})
+
+
+
+class FetchPerformingAccounts(Resource):
+    def get(self):
+        nameText = "Daviidoji"
+        likesText = "176"
+
+        return ({
+            'nameText': nameText,
+            'likesText': likesText
+        })
