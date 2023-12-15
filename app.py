@@ -35,10 +35,9 @@ from resources.UserDashboard import FetchRecentInteractions
 #
 
 #Tobi
-from resources.connect_accounts.ConnectInstagram import ConnectInsta, ConvertCode, InstagramProfileName, InstagramData
+from resources.connect_accounts.ConnectInstagram import ConnectInsta, ConvertCode, InstagramProfileNames, InstagramData, PostInstagramMedia
 
-#
-#
+from resources.connect_accounts.account_functions import CreateCaption
 #
 #
 #
@@ -89,9 +88,10 @@ api.add_resource(FetchAnswers, '/fetch-answers')
 api.add_resource(ChangeAnswers, '/change-answers')
 api.add_resource(ConnectInsta, '/connect-instagram')
 api.add_resource(ConvertCode, '/convert-code')
-api.add_resource(InstagramProfileName, '/instagram-profile-name')
+api.add_resource(InstagramProfileNames, '/instagram-profile-name')
 api.add_resource(InstagramData, '/instagram-profile-data')
-#
+api.add_resource(PostInstagramMedia, '/instagram-post-picture')
+api.add_resource(CreateCaption, '/create-caption')
 
 
 if __name__ == '__main__':
