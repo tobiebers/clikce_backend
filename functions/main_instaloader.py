@@ -4,27 +4,18 @@ class InstaloaderClient:
     def __init__(self):
         self.loader = instaloader.Instaloader()
 
+    def get_profile(self, username):
+        return instaloader.Profile.from_username(self.loader.context, username)
 
-
-    def display_profile_name(self, profile):
-        print("Profilname:", profile.username)
-
-    def display_profile_Follower(self, profile):
+    def display_profile_followers(self, profile):
         print("Follower:", profile.followers)
-
-    def display_profile_Followeed(self, profile):
-        print("Gefolgt von:", profile.followees)
-
-
-    def extract_post_metadata(self, profile):
-        for post in profile.get_posts():
-            print("Post:", post.url)
-            print("Likes:", post.likes)
-            print("Datum:", post.date)
-            print("Beschreibung:", post.caption)
 
 # Beispiel für die Verwendung der Klasse
 client = InstaloaderClient()
-username = 'your_username_here'
+username = 'tobi_ebers'
 
+# Profil laden
+profile = client.get_profile(username)
 
+# Follower anzeigen
+client.display_profile_followers(profile)
