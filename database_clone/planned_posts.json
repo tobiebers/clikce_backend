@@ -1,0 +1,38 @@
+[
+    {
+        "date": "2023-12-01",
+        "time": "10:00:00",
+        "account": "1",
+        "caption": "Post für den 1. Dezember",
+        "picture": "/static/model4.png"
+    },
+
+    {
+        "date": "2023-12-01",
+        "time": "10:00:00",
+        "account": "1",
+        "caption": "Hallo",
+        "picture": "/static/model4.png"
+    },
+    {
+        "date": "2023-12-02",
+        "time": "15:30:00",
+        "account": "2",
+        "caption": "Post für den 2. Dezember",
+        "picture": "/static/model4.png"
+    },
+    {
+        "date": "2023-01-15",
+        "time": "09:00:00",
+        "account": "1",
+        "caption": "Hallo",
+        "picture": "/static/model4.png"
+    },
+    {
+        "date": "2023-02-15",
+        "time": "20:00:00",
+        "account": "2",
+        "caption": "Hallo",
+        "picture": "/static/model4.png"
+    }
+]
