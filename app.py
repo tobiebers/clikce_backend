@@ -35,10 +35,11 @@ from resources.UserDashboard import FetchRecentInteractions
 #
 
 #Tobi
-from resources.connect_accounts.ConnectInstagram import AccountDetails, InstagramData, PostInstagramMedia, \
-    DeleteAccount, FollowerCount, PlannedPosts
+from resources.connect_accounts.ConnectInstagram import AccountDetails, AddInstagramData, PostInstagramMedia, \
+    DeleteAccount, FollowerCount, PlannedPosts, PlanPost
 
-from resources.connect_accounts.account_functions import CreateCaption
+from resources.connect_accounts.account_functions import CreateCaption, ScheduleBulkPosts
+
 #
 #
 #
@@ -89,11 +90,13 @@ api.add_resource(FetchAnswers, '/fetch-answers')
 api.add_resource(ChangeAnswers, '/change-answers')
 api.add_resource(DeleteAccount, '/delete-account')
 api.add_resource(AccountDetails, '/instagram-profiles')
-api.add_resource(InstagramData, '/instagram-profile-data')
+api.add_resource(AddInstagramData, '/instagram-profile-data')
 api.add_resource(PostInstagramMedia, '/instagram-post-picture')
 api.add_resource(CreateCaption, '/create-caption')
 api.add_resource(FollowerCount, '/followers/<string:username>')
 api.add_resource(PlannedPosts, '/planned-posts')
+api.add_resource(PlanPost, '/plan-post')
+api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
 
 
 

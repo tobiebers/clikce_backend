@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import requests
@@ -13,7 +15,7 @@ class CreateCaption(Resource):
 
 
 
-        openai.api_key = "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"
+        openai.api_key = "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"
 
         # Informationen über Ihr Unternehmen
         info = "Ich bin Influencer"
@@ -55,3 +57,49 @@ class CreateCaption(Resource):
             print(antwort_json)
             return {'error': 'Invalid response format'}, 400
 
+
+class ScheduleBulkPosts(Resource):
+    def post(self):
+        file_path = 'database_clone/planned_posts.json'
+        schedule_info = request.form
+
+        start_date = datetime.fromisoformat(schedule_info['startDate'])
+        post_times = json.loads(schedule_info['postTimes'])
+        accounts = json.loads(schedule_info['accounts'])
+
+        uploaded_files = request.files.getlist('files')
+
+        posts = []
+        for index, uploaded_file in enumerate(uploaded_files):
+            save_path = os.path.join('static', uploaded_file.filename)
+            uploaded_file.save(save_path)
+
+            # Ersetzen von Backslashes durch Vorwärtsslashes
+            save_path = '/' + save_path.replace('\\', '/')
+
+            post_date = (start_date + timedelta(days=index // len(post_times))).strftime('%Y-%m-%d')
+            post_time = post_times[index % len(post_times)]
+
+            posts.append({
+                'date': post_date,
+                'time': post_time,
+                'account': accounts,
+                'caption': 'Automatisch generierter Post',
+                'picture': save_path
+            })
+
+        try:
+            if os.path.isfile(file_path):
+                with open(file_path, 'r+') as file:
+                    existing_posts = json.load(file)
+                    existing_posts.extend(posts)
+                    file.seek(0)
+                    json.dump(existing_posts, file, indent=4)
+                    file.truncate()
+            else:
+                with open(file_path, 'w') as file:
+                    json.dump(posts, file, indent=4)
+
+            return {'status': 'success'}, 200
+        except Exception as e:
+            return {'error': str(e)}, 500

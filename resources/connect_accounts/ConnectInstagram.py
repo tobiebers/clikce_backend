@@ -22,7 +22,7 @@ class AccountDetails(Resource):
 
 
 
-class InstagramData(Resource):
+class AddInstagramData(Resource):
     def post(self):
         new_data = request.get_json()
         file_path = 'database_clone/instagram_data.json'
@@ -93,7 +93,7 @@ class FollowerCount(Resource):
 class PlannedPosts(Resource):
     def get(self):
         file_path = 'database_clone/planned_posts.json'
-        if os.path.isfile(file_path):  # Überprüft, ob die Datei existiert
+        if os.path.isfile(file_path):
             try:
                 with open(file_path, 'r') as file:
                     posts = json.load(file)
@@ -102,5 +102,48 @@ class PlannedPosts(Resource):
                 return {'error': 'JSON Decode Error: ' + str(e)}, 500
         else:
             return {'error': 'File not found: ' + file_path}, 404
+
+
+class PlanPost(Resource):
+    def post(self):
+        # Zugriff auf die hochgeladene Datei
+        if 'file' not in request.files:
+            return {'error': 'Keine Datei hochgeladen'}, 400
+
+        uploaded_file = request.files['file']
+
+        # Extrahieren der anderen Daten aus der Anfrage
+        date = request.form.get('date')
+        time = request.form.get('time')
+        account = request.form.get('accounts')
+        caption = request.form.get('caption')
+
+        # Temporären Pfad der Datei ausgeben und Datei speichern
+        save_path = os.path.join('static', uploaded_file.filename)
+        uploaded_file.save(save_path)
+
+        # Erstellen eines neuen Post-Objekts
+        new_post = {
+            'date': date,
+            'time': time,
+            'account': account,
+            'caption': caption,
+            'picture': '/' + save_path.replace('\\', '/')
+        }
+
+        # JSON-File aktualisieren
+        file_path = 'database_clone/planned_posts.json'
+        if os.path.isfile(file_path):
+            with open(file_path, 'r+') as file:
+                posts = json.load(file)
+                posts.append(new_post)
+                file.seek(0)
+                json.dump(posts, file, indent=4)
+                file.truncate()
+        else:
+            with open(file_path, 'w') as file:
+                json.dump([new_post], file, indent=4)
+
+        return {'status': 'success'}, 200
 
 
