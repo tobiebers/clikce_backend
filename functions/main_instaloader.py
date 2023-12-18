@@ -10,12 +10,17 @@ class InstaloaderClient:
     def get_profile_followers(self, profile):
         return profile.followers
 
-# Beispiel für die Verwendung der Klasse
-client = InstaloaderClient()
-username = 'tobi_ebers'
+    def get_profile_posts(self, username):
+        profile = self.get_profile(username)
+        posts = []
+        for post in profile.get_posts():
+            posts.append({
+                "caption": post.caption,
+                "image_url": post.url,
+                "date_posted": post.date,
+                "likes": post.likes,  # Anzahl der Likes
+                # ... Weitere Informationen je nach Bedarf
+            })
+        return posts
 
-# Profil laden
-profile = client.get_profile(username)
 
-# Follower anzeigen
-client.get_profile_followers(profile)

@@ -35,7 +35,8 @@ from resources.UserDashboard import FetchRecentInteractions
 #
 
 #Tobi
-from resources.connect_accounts.ConnectInstagram import ConnectInsta, ConvertCode, InstagramProfileNames, InstagramData, PostInstagramMedia
+from resources.connect_accounts.ConnectInstagram import AccountDetails, InstagramData, PostInstagramMedia, \
+    DeleteAccount, FollowerCount, PlannedPosts
 
 from resources.connect_accounts.account_functions import CreateCaption
 #
@@ -86,12 +87,14 @@ api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
 #Tobi
 api.add_resource(FetchAnswers, '/fetch-answers')
 api.add_resource(ChangeAnswers, '/change-answers')
-api.add_resource(ConnectInsta, '/connect-instagram')
-api.add_resource(ConvertCode, '/convert-code')
-api.add_resource(InstagramProfileNames, '/instagram-profile-name')
+api.add_resource(DeleteAccount, '/delete-account')
+api.add_resource(AccountDetails, '/instagram-profiles')
 api.add_resource(InstagramData, '/instagram-profile-data')
 api.add_resource(PostInstagramMedia, '/instagram-post-picture')
 api.add_resource(CreateCaption, '/create-caption')
+api.add_resource(FollowerCount, '/followers/<string:username>')
+api.add_resource(PlannedPosts, '/planned-posts')
+
 
 
 if __name__ == '__main__':
