@@ -3,8 +3,15 @@ import datetime
 import json
 import os
 import glob
+from instabot import Bot  # Stelle sicher, dass du Bot von instabot importierst, nicht von deiner eigenen Klasse
 
-from functions.InstagramBot import InstaBot
+# Pfad zum Verzeichnis des Skripts
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+# Funktion, um den absoluten Pfad zur Bild-Datei zu bekommen
+def get_image_path(relative_path):
+    return os.path.join(BASE_DIR, *relative_path.strip("/").split("/"))
 
 
 def job_function(post):
@@ -19,22 +26,23 @@ def job_function(post):
     username, password = get_credentials(account_name, users_data)
 
     if username and password:
-        print(
-            f"Bereite vor, den Post zu veröffentlichen: {post['caption']} mit Bild {post['picture']} für Account {account_name}")
+        print(f"Bereite vor, den Post zu veröffentlichen: {post['caption']} mit Bild {post['picture']} für Account {account_name}")
 
         # Lösche vorhandene Cookie-Dateien, um Login-Probleme zu vermeiden
         cookie_del = glob.glob("config/*cookie.json")
-        if cookie_del:
-            os.remove(cookie_del[0])
-
+        for cookie_file in cookie_del:
+            os.remove(cookie_file)
 
         # Instanziiere den InstaBot
-        bot = InstaBot(username, password)
+        bot = Bot()
 
         # Führe die Login- und Upload-Operationen aus
         try:
-            bot.login(is_threaded=True)
-            bot.upload_post(post['picture'], post['caption'])
+            bot.login(username=username, password=password, is_threaded=True)
+            picture_path = get_image_path(post['picture'])  # Generiere den absoluten Pfad
+            print(f"Versuche, das Bild von {picture_path} hochzuladen")
+            bot.upload_photo(picture_path, post['caption'])  # Verwende den absoluten Pfad
+
         except Exception as e:
             print(f"Fehler beim Hochladen des Posts: {e}")
         finally:
@@ -42,6 +50,7 @@ def job_function(post):
 
     else:
         print("Konnte Anmeldeinformationen für den Account nicht finden oder abrufen.")
+
 
 def load_posts():
     try:
