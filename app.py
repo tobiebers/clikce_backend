@@ -5,6 +5,7 @@ from flask_cors import CORS
 from config import Config
 from flask_mail import Mail
 
+from functions.post_schedule import setup_scheduler
 #import von den klassen
 from resources.UserResources import Login, SubmitAnswers, FetchAnswers, ChangeAnswers
 from resources.UserResources import Settingprofil
@@ -36,9 +37,9 @@ from resources.UserDashboard import FetchRecentInteractions
 
 #Tobi
 from resources.connect_accounts.ConnectInstagram import AccountDetails, AddInstagramData, PostInstagramMedia, \
-    DeleteAccount, FollowerCount, PlannedPosts, PlanPost
+    DeleteAccount, FollowerCount, PlannedPosts, PlanPost, CreateHashtagSet, GetHashtagSets
 
-from resources.connect_accounts.account_functions import CreateCaption, ScheduleBulkPosts
+from resources.connect_accounts.account_functions import CreateCaption, ScheduleBulkPosts, CreateBot
 
 #
 #
@@ -97,8 +98,12 @@ api.add_resource(FollowerCount, '/followers/<string:username>')
 api.add_resource(PlannedPosts, '/planned-posts')
 api.add_resource(PlanPost, '/plan-post')
 api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
+api.add_resource(CreateBot, '/create-bot')
+api.add_resource(CreateHashtagSet, '/create-hashtag-set')
+api.add_resource(GetHashtagSets, '/get-hashtag-sets')
 
 
 
 if __name__ == '__main__':
+    setup_scheduler()
     app.run(debug=True)

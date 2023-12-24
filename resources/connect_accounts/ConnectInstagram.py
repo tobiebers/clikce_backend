@@ -25,16 +25,26 @@ class AccountDetails(Resource):
 class AddInstagramData(Resource):
     def post(self):
         new_data = request.get_json()
+
+        # Standardmäßig 'bot' auf False setzen
+        new_data['bot'] = False
+
         file_path = 'database_clone/instagram_data.json'
 
-        try:
-            with open(file_path, 'r') as file:
-                data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
+        # Existierende Daten aus der Datei lesen oder eine leere Liste initialisieren
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as file:
+                    data = json.load(file)
+            except json.JSONDecodeError:
+                data = []
+        else:
             data = []
 
+        # Neue Daten hinzufügen
         data.append(new_data)
 
+        # Neue Daten in der Datei speichern
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -146,4 +156,43 @@ class PlanPost(Resource):
 
         return {'status': 'success'}, 200
 
+class CreateHashtagSet(Resource):
+    def post(self):
+        try:
+            data = request.get_json()
+            print(data)  # Zum Debuggen
 
+            name = data.get('name')
+            hashtags = data.get('hashtags')
+
+            file_path = 'database_clone/hashtag_sets.json'
+
+            # Stellen Sie sicher, dass die Datei existiert und gültiges JSON enthält
+            if not os.path.isfile(file_path) or os.path.getsize(file_path) == 0:
+                existing_sets = []
+            else:
+                with open(file_path, 'r') as file:
+                    existing_sets = json.load(file)
+
+            existing_sets.append({
+                'name': name,
+                'hashtags': hashtags
+            })
+
+            with open(file_path, 'w') as file:
+                json.dump(existing_sets, file, indent=4)
+
+            return jsonify({'status': 'success', 'message': 'Hashtag-Set erstellt'})
+
+        except Exception as e:
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+class GetHashtagSets(Resource):
+    def get(self):
+        try:
+            with open('database_clone/hashtag_sets.json', 'r') as file:
+                hashtag_sets = json.load(file)
+            return jsonify({'hashtagSets': hashtag_sets})
+        except (FileNotFoundError, json.JSONDecodeError):
+            return jsonify({'status': 'error', 'message': 'Keine Hashtag-Sets gefunden'}), 404

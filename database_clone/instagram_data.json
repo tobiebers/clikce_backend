@@ -2,11 +2,19 @@
     {
         "username": "tobi_ebers",
         "password": "16T1017E",
-        "platform": "Instagram"
+        "platform": "Instagram",
+        "bot": false
     },
     {
         "username": "Tobias2",
         "password": "hkjvbkj,",
-        "platform": "Facebook"
+        "platform": "Facebook",
+        "bot": false
+    },
+    {
+        "username": "Hype.ful",
+        "password": "Tobias1303",
+        "platform": "Instagram",
+        "bot": false
     }
 ]

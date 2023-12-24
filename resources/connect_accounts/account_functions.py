@@ -1,4 +1,6 @@
 from datetime import timedelta, datetime
+import threading
+
 
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
@@ -7,6 +9,9 @@ import json
 import os
 import openai
 import json
+
+from functions.InstagramBot import InstaBot, execute_bot_actions, run_bot_in_background
+
 
 class CreateCaption(Resource):
     def post(self):
@@ -103,3 +108,73 @@ class ScheduleBulkPosts(Resource):
             return {'status': 'success'}, 200
         except Exception as e:
             return {'error': str(e)}, 500
+
+
+
+from flask import request, jsonify
+from flask_restful import Resource
+
+class CreateBot(Resource):
+    def post(self):
+        data = request.get_json()
+
+        # Account-Daten extrahieren (nehmen Sie das erste ausgewählte Konto)
+        selected_account = data.get('selectedUsernames', [])[0]
+
+        # Extrahieren der weiteren Daten
+        follower_count = data.get('followerCount')
+        target_username = data.get('targetUsername')
+        duration = data.get('duration')
+        like_posts = data.get('likePosts')
+        comment_on_posts = data.get('commentOnPosts')
+        comment_method = data.get('commentMethod')
+        comment_input = data.get('commentInput')
+        send_message = data.get('sendMessage')
+        message_method = data.get('messageMethod')
+        message_input = data.get('messageInput')
+
+        # Stellen Sie sicher, dass selected_account ein Dictionary ist und einen Benutzernamen enthält
+        if isinstance(selected_account, dict) and 'username' in selected_account:
+            selected_username = selected_account['username']
+        else:
+            print("Ungültige Account-Daten:", selected_account)
+            return jsonify({'status': 'error', 'message': 'Ungültige Account-Daten'})
+
+        # Lesen des JSON-Files
+        try:
+            with open('database_clone/instagram_data.json', 'r') as file:
+                accounts_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Fehler beim Lesen der Daten: {e}")
+            return jsonify({'status': 'error', 'message': 'Fehler beim Lesen der Daten'})
+
+        # Account im JSON-File suchen
+        account_info = next((acc for acc in accounts_data if acc['username'] == selected_username), None)
+
+        if account_info:
+            print(f"Account gefunden: {account_info}")
+
+            if not account_info.get('bot'):
+                # Username und Passwort extrahieren
+                username = account_info['username']
+                password = account_info['password']
+                print(f"Account ist bereit für den Bot. Username: {username}, Password: {password}")
+
+                bot_thread = threading.Thread(target=run_bot_in_background, args=(
+                username, password, duration, follower_count, target_username, like_posts, comment_on_posts,
+                comment_method, comment_input, send_message, message_method, message_input))
+                bot_thread.start()
+
+        return jsonify({'status': 'success', 'message': 'Bot-Daten empfangen und Account validiert'})
+
+
+
+
+
+
+
+
+
+
+
+
