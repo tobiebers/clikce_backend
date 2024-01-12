@@ -4,6 +4,10 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import requests
 import json
+import glob
+from instabot import Bot
+
+from functions.post_schedule import get_credentials, get_image_path, load_user_data
 
 from functions.main_instaloader import InstaloaderClient
 
@@ -89,7 +93,39 @@ class PostInstagramMedia(Resource):
         print("Caption:", caption)
         print("Accounts:", accounts)
 
+        # Für jeden Account in der Liste
+        for account_name in accounts:
+            # Bereinige den Accountnamen und hole die Anmeldeinformationen
+            username, password = get_credentials(account_name, load_user_data())
+
+            if username and password:
+                print(f"Bereite vor, den Post zu veröffentlichen für Account {account_name}")
+
+                # Erstelle eine Instanz des Bots
+                bot = Bot()
+
+                try:
+                    # Generiere den absoluten Pfad zur Bilddatei
+                    picture_path = get_image_path(save_path)
+                    # Lösche vorhandene Cookie-Dateien, um Login-Probleme zu vermeiden
+                    cookie_del = glob.glob("config/*cookie.json")
+                    for cookie_file in cookie_del:
+                        os.remove(cookie_file)
+
+                    # Führe die Login- und Upload-Operationen aus
+                    bot.login(username=username, password=password, is_threaded=True)
+                    bot.upload_photo(picture_path, caption)
+
+                except Exception as e:
+                    print(f"Fehler beim Hochladen des Posts: {e}")
+                finally:
+                    bot.logout()
+            else:
+                print(f"Konnte Anmeldeinformationen für den Account {account_name} nicht finden oder abrufen.")
+
         return {'status': 'success'}, 200
+
+#
 
 
 class FollowerCount(Resource):
