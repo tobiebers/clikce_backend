@@ -29,7 +29,7 @@ from resources.UserDashboard import FetchPerformingAccounts
 
 #Alex
 
-from resources.UserResources import FetchCardInfo
+from resources.UserDashboard import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
 from resources.UserDashboard import FetchRecentInteractions

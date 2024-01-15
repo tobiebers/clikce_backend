@@ -1,10 +1,5 @@
 [
-    {
-        "username": "tobi_ebers",
-        "password": "16T1017E",
-        "platform": "Instagram",
-        "bot": false
-    },
+
     {
         "username": "Tobias2",
         "password": "hkjvbkj,",
@@ -16,11 +11,6 @@
         "password": "Tobias1303",
         "platform": "Instagram",
         "bot": false
-    },
-    {
-        "username": " elarasterling",
-        "password": "16T1017E",
-        "platform": "Instagram",
-        "bot": false
     }
+
 ]

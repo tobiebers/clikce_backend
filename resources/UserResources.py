@@ -3,7 +3,7 @@ from flask_restful import Resource, Api
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
 from functions.main_instaloader import InstaloaderClient
-
+import json
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
 class Login(Resource):
@@ -67,41 +67,6 @@ class FetchAnswers(Resource):
     def get(self):
         data = db.get_all_answers()
         return jsonify(data)
-
-
-
-
-
-
-
-
-
-
-
-
-class FetchCardInfo(Resource):
-    def get(self):
-        client = InstaloaderClient()
-        username = 'tobi_ebers'
-
-        # Profil laden
-        profile = client.get_profile(username)
-
-        # Follower abrufen
-        followers = client.get_profile_followers(profile)
-
-        # Angenommen, die anderen Textabschnitte bleiben gleich
-        section1_text = "176"
-        section2_text = str(followers)
-        section3_text = "190"
-        section4_text = "12"
-
-        return jsonify({
-            'section1Text': section1_text,
-            'section2Text': section2_text,
-            'section3Text': section3_text,
-            'section4Text': section4_text
-        })
 
 
 
