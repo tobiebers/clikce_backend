@@ -117,6 +117,7 @@ class FetchCardInfo(Resource):
                     total_likes += post['likes']
                     total_comments += post['comment_count']
 
+
         likes_text = str(total_likes)
         follower_text = str(total_followers)
         kommentar_text = str(total_comments)
