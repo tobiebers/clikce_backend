@@ -88,24 +88,16 @@ class FetchAnswers(Resource):
         data = db.get_all_answers()
         return jsonify(data)
 
-from flask_restful import Resource
-from flask import jsonify
-import json
-
-from flask_restful import Resource
-from flask import jsonify
-import json
-
 class FetchCardInfo(Resource):
     def get(self):
-        json_file_path = 'database_clone/alexjson.json'
+        json_file_path = 'database_clone/instagram_data.json'
         with open(json_file_path, 'r') as file:
             users = json.load(file)
 
         total_likes = 0
         total_followers = 0
         total_comments = 0
-        total_followings = 0  # Gesamtanzahl der Followings
+        total_followings = 0
 
         for user in users:
             if user['platform'] == 'Instagram':
@@ -116,7 +108,6 @@ class FetchCardInfo(Resource):
                 for post in posts:
                     total_likes += post['likes']
                     total_comments += post['comment_count']
-
 
         likes_text = str(total_likes)
         follower_text = str(total_followers)

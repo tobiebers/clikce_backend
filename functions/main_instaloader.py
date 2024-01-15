@@ -34,5 +34,4 @@ class InstaloaderClient:
 
     def get_profile_followings(self, username):
         profile = self.get_profile(username)
-        followings = profile.get_followees()
-        return len(list(followings))
+        return profile.followees
