@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
+import json
+
+from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
@@ -78,3 +81,51 @@ class FetchPerformingAccounts(Resource):
             'nameText': nameText,
             'likesText': likesText
         })
+
+
+class FetchAnswers(Resource):
+    def get(self):
+        data = db.get_all_answers()
+        return jsonify(data)
+
+from flask_restful import Resource
+from flask import jsonify
+import json
+
+from flask_restful import Resource
+from flask import jsonify
+import json
+
+class FetchCardInfo(Resource):
+    def get(self):
+        json_file_path = 'database_clone/alexjson.json'
+        with open(json_file_path, 'r') as file:
+            users = json.load(file)
+
+        total_likes = 0
+        total_followers = 0
+        total_comments = 0
+        total_followings = 0  # Gesamtanzahl der Followings
+
+        for user in users:
+            if user['platform'] == 'Instagram':
+                client = InstaloaderClient(user['username'], user['password'])
+                total_followers += client.get_profile_followers(user['username'])
+                total_followings += client.get_profile_followings(user['username'])  # Followings hinzufügen
+                posts = client.get_profile_posts(user['username'])
+                for post in posts:
+                    total_likes += post['likes']
+                    total_comments += post['comment_count']
+
+        likes_text = str(total_likes)
+        follower_text = str(total_followers)
+        kommentar_text = str(total_comments)
+        following_text = str(total_followings)
+
+        return jsonify({
+            'likesText': likes_text,
+            'followerText': follower_text,
+            'kommentarText': kommentar_text,
+            'followingText': following_text
+        })
+
