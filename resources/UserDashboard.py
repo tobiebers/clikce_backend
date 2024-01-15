@@ -3,7 +3,7 @@ from flask_restful import Resource, Api
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
 import json
-
+from ratelimit import limits, sleep_and_retry
 from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
@@ -72,19 +72,19 @@ class FetchRecentInteractions(Resource):
 
 
 
-class FetchPerformingAccounts(Resource):
-    def get(self):
-        nameText = "Daviidoji"
-        likesText = "176"
-
-        return ({
-            'nameText': nameText,
-            'likesText': likesText
-        })
-
-
-
 class FetchCardInfo(Resource):
+
+    @sleep_and_retry
+    @limits(calls=1, period=60)  # Begrenze auf 10 Anfragen pro Minute
+    def get_instagram_data(self, client, username):
+        total_followers = client.get_profile_followers(username)
+        total_followings = client.get_profile_followings(username)
+        posts = client.get_profile_posts(username)
+
+        total_likes = sum(post['likes'] for post in posts)
+        total_comments = sum(post['comment_count'] for post in posts)
+        return total_likes, total_followers, total_comments, total_followings
+
     def get(self):
         json_file_path = 'database_clone/instagram_data.json'
         with open(json_file_path, 'r') as file:
@@ -98,27 +98,31 @@ class FetchCardInfo(Resource):
         for user in users:
             if user['platform'] == 'Instagram':
                 client = InstaloaderClient(user['username'], user['password'])
-                total_followers += client.get_profile_followers(user['username'])
-                total_followings += client.get_profile_followings(user['username'])  # Followings hinzufügen
-                posts = client.get_profile_posts(user['username'])
-                for post in posts:
-                    total_likes += post['likes']
-                    total_comments += post['comment_count']
+                try:
+                    likes, followers, comments, followings = self.get_instagram_data(client, user['username'])
+                    total_likes += likes
+                    total_followers += followers
+                    total_comments += comments
+                    total_followings += followings
+                except Exception as e:
+                    print(f"Fehler beim Abrufen der Daten für {user['username']}: {e}")
 
-        likes_text = str(total_likes)
-        follower_text = str(total_followers)
-        kommentar_text = str(total_comments)
-        following_text = str(total_followings)
+                likes_text = str(total_likes)
+                follower_text = str(total_followers)
+                kommentar_text = str(total_comments)
+                following_text = str(total_followings)
 
-        return jsonify({
-            'likesText': likes_text,
-            'followerText': follower_text,
-            'kommentarText': kommentar_text,
-            'followingText': following_text
-        })
+                return jsonify({
+                    'likesText': likes_text,
+                    'followerText': follower_text,
+                    'kommentarText': kommentar_text,
+                    'followingText': following_text
+                })
 
 
 class FetchPerformingAccounts(Resource):
+    @sleep_and_retry
+    @limits(calls=1, period=60)
     def get(self):
         json_file_path = 'database_clone/instagram_data.json'
         with open(json_file_path, 'r') as file:
@@ -148,9 +152,9 @@ class FetchPerformingAccounts(Resource):
         else:
             nameText = 'Nicht verfügbar'
             likesText = '0'
-
-        return jsonify({
+        return ({
             'nameText': nameText,
-            'likesText': likesText
+            'likesText': likesText,
         })
+
 
