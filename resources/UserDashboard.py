@@ -75,7 +75,7 @@ class FetchRecentInteractions(Resource):
 class FetchCardInfo(Resource):
 
     @sleep_and_retry
-    @limits(calls=1, period=60)  # Begrenze auf 10 Anfragen pro Minute
+    @limits(calls=5, period=60)  # Begrenze auf 10 Anfragen pro Minute
     def get_instagram_data(self, client, username):
         total_followers = client.get_profile_followers(username)
         total_followings = client.get_profile_followings(username)
@@ -122,7 +122,7 @@ class FetchCardInfo(Resource):
 
 class FetchPerformingAccounts(Resource):
     @sleep_and_retry
-    @limits(calls=1, period=60)
+    @limits(calls=5, period=60)
     def get(self):
         json_file_path = 'database_clone/instagram_data.json'
         with open(json_file_path, 'r') as file:
@@ -151,7 +151,7 @@ class FetchPerformingAccounts(Resource):
             likesText = str(max_likes)
         else:
             nameText = 'Nicht verfügbar'
-            likesText = '0'
+            likesText = 'Fehler'
         return ({
             'nameText': nameText,
             'likesText': likesText,
