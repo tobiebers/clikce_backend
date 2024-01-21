@@ -12,7 +12,7 @@ from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
 #David
-from resources.UserDashboard import FetchPerformingAccounts
+#from resources.UserDashboard import FetchPerformingAccounts
 #
 #
 #
@@ -29,7 +29,7 @@ from resources.UserDashboard import FetchPerformingAccounts
 
 #Alex
 
-from resources.UserDashboard import FetchCardInfo
+#from resources.UserDashboard import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
 from resources.UserDashboard import FetchRecentInteractions
@@ -64,7 +64,7 @@ api.add_resource(Contact, '/contact')
 api.add_resource(SubmitAnswers, '/submit-answers')
 
 #David
-api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
+#api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
 #
 #
 #
@@ -80,7 +80,7 @@ api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
 #
 
 #Alex
-api.add_resource(FetchCardInfo, '/fetch-card-info')
+#api.add_resource(FetchCardInfo, '/fetch-card-info')
 api.add_resource(FetchChart, '/fetch-chart')
 api.add_resource(FetchChartPie, '/fetch-chart-data')
 api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')

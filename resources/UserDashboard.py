@@ -3,7 +3,7 @@ from flask_restful import Resource, Api
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
 import json
-from ratelimit import limits, sleep_and_retry
+#from ratelimit import limits, sleep_and_retry
 from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
@@ -72,7 +72,7 @@ class FetchRecentInteractions(Resource):
 
 
 
-class FetchCardInfo(Resource):
+'''class FetchCardInfo(Resource):
 
     @sleep_and_retry
     @limits(calls=1, period=3600)  # Begrenze auf 10 Anfragen pro Minute
@@ -119,8 +119,8 @@ class FetchCardInfo(Resource):
                     'followingText': following_text
                 })
 
-
-class FetchPerformingAccounts(Resource):
+'''
+'''class FetchPerformingAccounts(Resource):
     @sleep_and_retry
     @limits(calls=1, period=3600)
     def get(self):
@@ -156,5 +156,5 @@ class FetchPerformingAccounts(Resource):
             'nameText': nameText,
             'likesText': likesText,
         })
-
+'''
 

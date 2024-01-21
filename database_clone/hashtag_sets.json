@@ -5,5 +5,12 @@
             "#hallo",
             "#hi"
         ]
+    },
+    {
+        "name": "Set1",
+        "hashtags": [
+            "#hallo",
+            "#test"
+        ]
     }
 ]

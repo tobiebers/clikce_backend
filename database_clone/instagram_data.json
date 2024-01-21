@@ -1,5 +1,4 @@
 [
-
     {
         "username": "emma_sophie86",
         "password": "aL.8600",
@@ -11,6 +10,17 @@
         "password": "Tobias1303",
         "platform": "Instagram",
         "bot": false
+    },
+    {
+        "username": "sophia_taytay",
+        "password": "Tobias1303",
+        "platform": "Instagram",
+        "bot": false
+    },
+    {
+        "username": "hansdefboss",
+        "password": "Tobias1303",
+        "platform": "Instagram",
+        "bot": false
     }
-
 ]

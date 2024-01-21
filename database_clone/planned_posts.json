@@ -19,5 +19,41 @@
         "account": "[\"Hype.ful\"]",
         "caption": "hi",
         "picture": "/static/image (5).png"
+    },
+    {
+        "date": "2024-01-28",
+        "time": "12:00",
+        "account": [
+            "Hype.ful"
+        ],
+        "caption": "Automatisch generierter Post",
+        "picture": "/static/image - 2024-01-04T210746.630.png"
+    },
+    {
+        "date": "2024-01-29",
+        "time": "12:00",
+        "account": [
+            "Hype.ful"
+        ],
+        "caption": "Automatisch generierter Post",
+        "picture": "/static/image - 2024-01-05T084155.167.png"
+    },
+    {
+        "date": "2024-01-30",
+        "time": "12:00",
+        "account": [
+            "Hype.ful"
+        ],
+        "caption": "Automatisch generierter Post",
+        "picture": "/static/image - 2024-01-05T085606.714.png"
+    },
+    {
+        "date": "2024-01-31",
+        "time": "12:00",
+        "account": [
+            "Hype.ful"
+        ],
+        "caption": "Automatisch generierter Post",
+        "picture": "/static/image - 2024-01-05T135455.465.png"
     }
 ]
