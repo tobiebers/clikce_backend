@@ -10,7 +10,7 @@ import os
 import openai
 import json
 
-from functions.InstagramBot import InstaBot, execute_bot_actions, run_bot_in_background
+from functions.InstagramBot import  execute_bot_actions, run_bot_in_background
 
 
 class CreateCaption(Resource):
