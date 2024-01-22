@@ -111,8 +111,6 @@ class ScheduleBulkPosts(Resource):
 
 
 
-from flask import request, jsonify
-from flask_restful import Resource
 
 class CreateBot(Resource):
     def post(self):
