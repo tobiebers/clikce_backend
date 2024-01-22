@@ -1,6 +1,7 @@
 import json
 import time
 
+import openai
 from flask import jsonify
 from instabot import Bot
 
@@ -36,13 +37,89 @@ class InstagramBot:
         self.client.direct_send(message, [user_id])
 
     def log_and_print(self, message):
-        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-        log_entry = {"timestamp": timestamp, "message": message}
-        self.log_list.append(log_entry)
+        try:
+            with open("log_file.txt", "a", encoding="utf-8") as file:
+                file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
+        except UnicodeEncodeError:
+            # Ignoriere den Fehler und protokolliere die Nachricht ohne Emojis
+            cleaned_message = message.encode('ascii', 'ignore').decode('ascii')
+            with open("log_file.txt", "a", encoding="utf-8") as file:
+                file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {cleaned_message}\n")
         print(message)
-        with open("log_file.json", "w") as file:
-            json.dump(self.log_list, file, indent=4)
 
+    def generate_ki_comment(self):
+        # Stelle sicher, dass der API-Key sicher gehandhabt wird
+        openai.api_key = "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"
+
+        # Nachrichtenstruktur definieren
+        nachrichten = [
+            {
+                "role": "system",
+                "content": "You are an AI specialized in generating engaging and relevant comments for social media posts, particularly for Instagram. You understand "
+                           "the nuances of social interaction online and can craft comments that are appropriate for various types of posts, whether they are personal, "
+                           "business-related, or for entertainment purposes. Your comments are concise, respectful, and add value to the conversation. Please generate a "
+                           "comment suitable for an Instagram post. Do not use emojis in the comment."
+
+            },
+            {
+                "role": "user",
+                "content": "Generate a nice comment for an Instagram post with a maximum of 50 characters. and a minumum of 20"
+            }
+        ]
+
+        # API-Anfrage
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=nachrichten
+            )
+            # Extrahiere und gib das Kommentar zurück
+            if response.choices and response.choices[0].message:
+                kommentar = response.choices[0].message['content']
+                if len(kommentar) <= 50:
+                    return kommentar
+                else:
+                    return "Kommentar zu lang (> 50 Zeichen)."
+            else:
+                return "Keine gültige Antwort erhalten."
+
+        except Exception as e:
+            return f"Fehler bei der Kommentargenerierung: {e}"
+
+
+    def generate_ki_message(self):
+        # Stelle sicher, dass der API-Key sicher gehandhabt wird
+        openai.api_key = "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"
+
+        # Nachrichtenstruktur definieren
+        nachrichten = [
+            {
+                "role": "system",
+                "content": "You are an AI specialized in creating brief, friendly, and engaging messages for social media, suitable for initiating a new connection. "
+                           "Your messages should be warm and convey a sense of wanting to get to know the person, like the beginning of a friendly conversation. "
+                           "Please generate a short greeting message that is casual and friendly, aiming to spark a friendly connection. Do not use emojis. "
+                           "The message should be 1-3 sentences long."
+            },
+            {
+                "role": "user",
+                "content": "Create a friendly and engaging direct message suitable for a instagram user."
+            }
+        ]
+
+        # API-Anfrage
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=nachrichten
+            )
+            # Extrahiere und gib die Nachricht zurück
+            if response.choices and response.choices[0].message:
+                return response.choices[0].message['content']
+            else:
+                return "Keine gültige Antwort erhalten."
+
+        except Exception as e:
+            return f"Fehler bei der Nachrichtengenerierung: {e}"
 
 
 
@@ -75,11 +152,21 @@ def execute_bot_actions(username, password, duration, follower_count, target_use
                         bot.log_and_print(f"Fehler beim Liken des Beitrags: {e}")
 
                 if comment_on_posts:
-                    try:
-                        bot.comment_post_by_id(last_post_id, comment_input)
-                        bot.log_and_print(f"Post kommentiert mit der ID {last_post_id}")
-                    except Exception as e:
-                        bot.log_and_print(f"Fehler beim Kommentieren: {e}")
+                    if comment_method == "manuell":
+                        try:
+                            bot.comment_post_by_id(last_post_id, comment_input)
+                            bot.log_and_print(f"Post kommentiert mit der ID {last_post_id}")
+                        except Exception as e:
+                            bot.log_and_print(f"Fehler beim Kommentieren: {e}")
+                    else:
+                        # Verwende den KI-generierten Kommentar
+                        try:
+                            ki_comment = bot.generate_ki_comment()
+                            bot.comment_post_by_id(last_post_id, ki_comment)
+                            bot.log_and_print(f"KI-Kommentar gesendet {ki_comment} an Post {last_post_id}")
+                        except Exception as e:
+                            bot.log_and_print(f"Fehler beim Senden des KI-Kommentars: {e}")
+
             else:
                 bot.log_and_print(f"Keine Beiträge gefunden für Nutzer {user_id}")
 
@@ -87,11 +174,20 @@ def execute_bot_actions(username, password, duration, follower_count, target_use
             bot.log_and_print(f"Fehler bei Interaktion mit Nutzer {user_id}: {e}")
 
         if send_message:
-            try:
-                bot.send_message_to_user(user_id, message_input)
-                bot.log_and_print(f"Nachricht gesendet an Nutzer {user_id}")
-            except Exception as e:
-                bot.log_and_print(f"Fehler beim Senden der Nachricht: {e}")
+            if message_method == "manuell":
+                try:
+                    bot.send_message_to_user(user_id, message_input)
+                    bot.log_and_print(f"Nachricht gesendet an Nutzer {user_id}")
+                except Exception as e:
+                    bot.log_and_print(f"Fehler beim Senden der Nachricht: {e}")
+            else:
+                # Verwende die KI-generierte Nachricht
+                try:
+                    ki_message = bot.generate_ki_message()
+                    bot.send_message_to_user(user_id, ki_message)
+                    bot.log_and_print(f"KI-Nachricht {ki_message} gesendet an Nutzer {user_id}")
+                except Exception as e:
+                    bot.log_and_print(f"Fehler beim Senden der KI-Nachricht: {e}")
 
         time.sleep(duration_interaction)
 
