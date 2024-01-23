@@ -111,12 +111,39 @@ class ScheduleBulkPosts(Resource):
 
 
 
-from flask import request, jsonify
-from flask_restful import Resource
 
 class CreateBot(Resource):
     def post(self):
         data = request.get_json()
+
+        # Debug: Ausgabe der empfangenen Daten
+        print("Empfangene Daten:", data)
+
+        # Account-Daten und weitere Parameter extrahieren
+        selected_account = data.get('selectedUsernames', [])[0]
+        follower_count = data.get('followerCount')
+        target_username = data.get('targetUsername')
+        duration = data.get('duration')
+        like_posts = data.get('likePosts')
+        comment_on_posts = data.get('commentOnPosts')
+        comment_method = data.get('commentMethod')
+        comment_input = data.get('commentInput')
+        send_message = data.get('sendMessage')
+        message_method = data.get('messageMethod')
+        message_input = data.get('messageInput')
+
+        # Debug: Ausgabe der extrahierten Parameter
+        print("Selected Account:", selected_account)
+        print("Follower Count:", follower_count)
+        print("Target Username:", target_username)
+        print("Duration:", duration)
+        print("Like Posts:", like_posts)
+        print("Comment on Posts:", comment_on_posts)
+        print("Comment Method:", comment_method)
+        print("Comment Input:", comment_input)
+        print("Send Message:", send_message)
+        print("Message Method:", message_method)
+        print("Message Input:", message_input)
 
         # Account-Daten extrahieren (nehmen Sie das erste ausgewählte Konto)
         selected_account = data.get('selectedUsernames', [])[0]
@@ -132,6 +159,9 @@ class CreateBot(Resource):
         send_message = data.get('sendMessage')
         message_method = data.get('messageMethod')
         message_input = data.get('messageInput')
+
+        duration=int(duration)
+        follower_count=int(follower_count)
 
         # Stellen Sie sicher, dass selected_account ein Dictionary ist und einen Benutzernamen enthält
         if isinstance(selected_account, dict) and 'username' in selected_account:
