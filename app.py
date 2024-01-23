@@ -12,7 +12,7 @@ from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
 #David
-#from resources.UserDashboard import FetchPerformingAccounts
+from resources.UserDashboard import FetchPerformingAccounts
 #
 #
 #
@@ -29,7 +29,7 @@ from resources.UserContact import Contact
 
 #Alex
 
-#from resources.UserDashboard import FetchCardInfo
+from resources.DashboardAlex import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
 from resources.UserDashboard import FetchRecentInteractions
@@ -57,45 +57,50 @@ mail = Mail(app)
 
 
 
+#hinzufügen der routen
+api.add_resource(Login, '/login')
+api.add_resource(Settingprofil, '/settingProfil')
+api.add_resource(Contact, '/contact')
+api.add_resource(SubmitAnswers, '/submit-answers')
 
+#David
+api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
+#
+#
+#
+#
+#
 
-#Analytics Resources---------------------------------------------------------------
-api.add_resource(FetchChartPie, '/fetch-chart-data')
+#Tim
+#
+#
+#
+#
+#
+#
 
-
-#Dashboard Resources---------------------------------------------------------------
+#Alex
+api.add_resource(FetchCardInfo, '/fetch-card-info')
 api.add_resource(FetchChart, '/fetch-chart')
+api.add_resource(FetchChartPie, '/fetch-chart-data')
 api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
-api.add_resource(FollowerCount, '/followers/<string:username>')
-#api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
+#
 
-
-#User Resources--------------------------------------------------------------------
+#Tobi
 api.add_resource(FetchAnswers, '/fetch-answers')
 api.add_resource(ChangeAnswers, '/change-answers')
-#api.add_resource(Login, '/login')
-api.add_resource(Settingprofil, '/settingProfil')
-api.add_resource(SubmitAnswers, '/submit-answers')
-api.add_resource(Contact, '/contact')
-
-
-#Acc-Mangement Resources-----------------------------------------------------------
 api.add_resource(DeleteAccount, '/delete-account')
 api.add_resource(AccountDetails, '/instagram-profiles')
 api.add_resource(AddInstagramData, '/instagram-profile-data')
-
-
-
-
-#Calandar Resources----------------------------------------------------------------
 api.add_resource(PostInstagramMedia, '/instagram-post-picture')
 api.add_resource(CreateCaption, '/create-caption')
-api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
-api.add_resource(CreateBot, '/create-bot')
-api.add_resource(GetHashtagSets, '/get-hashtag-sets')
-api.add_resource(CreateHashtagSet, '/create-hashtag-set')
+api.add_resource(FollowerCount, '/followers/<string:username>')
 api.add_resource(PlannedPosts, '/planned-posts')
 api.add_resource(PlanPost, '/plan-post')
+api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
+api.add_resource(CreateBot, '/create-bot')
+api.add_resource(CreateHashtagSet, '/create-hashtag-set')
+api.add_resource(GetHashtagSets, '/get-hashtag-sets')
 
 
 
