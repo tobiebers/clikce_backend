@@ -5,6 +5,8 @@ from ratelimit import sleep_and_retry, limits
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
 import json
+
+from functions.main_instagrabi import InstagrabiClient
 #from ratelimit import limits, sleep_and_retry
 from functions.main_instaloader import InstaloaderClient
 
@@ -48,39 +50,6 @@ class FetchChartPie(Resource):
 
 from flask import jsonify
 
-class FetchRecentInteractions(Resource):
-    def get(self):
-        try:
-            # Define dropdown options
-            account_options = ['Insta', 'Facebook', 'YouTube']
-            account_group_options = ['Group 1', 'Group 2', 'Group 3']
-            interaction_options = ['Likes', 'Followers', 'Views']
-
-            # Logic to retrieve or calculate data based on selected values
-            # ...
-
-            # Construct response data
-            data = {
-                "account": account_options,
-                "account_group": account_group_options,
-                "interaction": interaction_options,
-                # Include other data as needed
-            }
-
-            return jsonify(data)
-
-        except Exception as e:
-            return jsonify({"error": str(e)})
 
 
 
-class FetchPerformingAccounts(Resource):
-    @sleep_and_retry
-    @limits(calls=1, period=3600)
-    def get(self):
-        # Standardwerte zurückgeben
-        return jsonify({
-            'nameText': 'Standard Benutzername',
-            'likesText': '100',
-            'profilePicture': 'Placeholder.jpg'
-        })
