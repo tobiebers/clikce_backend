@@ -20,7 +20,7 @@ from resources.UserDashboard import FetchPerformingAccounts
 #
 
 #Tim
-#
+from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 #
 #
 #
@@ -72,9 +72,7 @@ api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
 #
 
 #Tim
-#
-#
-#
+api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
 #
 #
 #

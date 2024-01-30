@@ -1,0 +1,21 @@
+[
+
+    {
+        "username": "Test1",
+        "password": "Test,",
+        "platform": "TikTok",
+        "bot": false
+    },
+    {
+        "username": "Test2",
+        "password": "Test",
+        "platform": "TikTok",
+        "bot": false
+    },
+    {
+        "username": "Test3",
+        "password": "Test",
+        "platform": "TikTok",
+        "bot": false
+    }
+]

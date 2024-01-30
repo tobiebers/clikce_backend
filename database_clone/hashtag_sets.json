@@ -12,5 +12,25 @@
             "#hallo",
             "#test"
         ]
+    },
+    {
+        "name": "ki",
+        "hashtags": [
+            "#i"
+        ]
+    },
+    {
+        "name": "l\u00f6schen",
+        "hashtags": [
+            "#awdawd",
+            "#awdad"
+        ]
+    },
+    {
+        "name": "l\u00f6schen",
+        "hashtags": [
+            "#awdawd",
+            "#awdad"
+        ]
     }
 ]
