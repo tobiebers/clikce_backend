@@ -30,7 +30,7 @@ class FetchRecentInteractions(Resource):
                 "account": account_options,
                 "account_group": account_group_options,
                 "interaction": interaction_options,
-                # Weitere Daten nach Bedarf einfügen.
+                # Weitere Daten nach Bedarf einfügen!
             }
 
             return jsonify(data)
