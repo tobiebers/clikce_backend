@@ -32,7 +32,7 @@ from resources.DashboardAlex import FetchPerformingAccounts, FetchRefreshData
 from resources.DashboardAlex import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
-from resources.DashboardAlex import FetchRecentInteractions
+from resources.DashboardDavid import FetchRecentInteractions
 #
 
 #Tobi
