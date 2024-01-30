@@ -12,7 +12,7 @@ from resources.UserResources import Settingprofil
 from resources.UserContact import Contact
 
 #David
-from resources.UserDashboard import FetchPerformingAccounts
+from resources.DashboardAlex import FetchPerformingAccounts, FetchRefreshData
 #
 #
 #
@@ -32,7 +32,7 @@ from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 from resources.DashboardAlex import FetchCardInfo
 from resources.UserDashboard import FetchChart
 from resources.UserDashboard import FetchChartPie
-from resources.UserDashboard import FetchRecentInteractions
+from resources.DashboardAlex import FetchRecentInteractions
 #
 
 #Tobi
@@ -65,7 +65,7 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 
 #David
 api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
-#
+api.add_resource(FetchRefreshData, '/fetch-refresh-data')
 #
 #
 #
@@ -82,7 +82,6 @@ api.add_resource(FetchCardInfo, '/fetch-card-info')
 api.add_resource(FetchChart, '/fetch-chart')
 api.add_resource(FetchChartPie, '/fetch-chart-data')
 api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
-#
 
 #Tobi
 api.add_resource(FetchAnswers, '/fetch-answers')
