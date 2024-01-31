@@ -93,28 +93,6 @@ class FetchPerformingAccounts(Resource):
 
 
 
-class FetchRecentInteractions(Resource):
-    def get(self):
-        try:
-            # Define dropdown options
-            account_options = ['Insta', 'TikTok']
-            account_group_options = ['Account1', 'Account2', 'Account3']
-            interaction_options = ['Likes', 'Followers', 'Followings', 'Comments']
 
-            # Logic to retrieve or calculate data based on selected values
-            # ...
-
-            # Construct response data
-            data = {
-                "account": account_options,
-                "account_group": account_group_options,
-                "interaction": interaction_options,
-                # Include other data as needed
-            }
-
-            return jsonify(data)
-
-        except Exception as e:
-            return jsonify({"error": str(e)})
 
 
