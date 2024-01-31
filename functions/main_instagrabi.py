@@ -33,3 +33,20 @@ class InstagrabiClient:
         posts = self.client.user_medias(user_id, amount=0)  # Alle Posts abrufen
         total_comments = sum(post.comment_count for post in posts)  # Summe der Kommentare aller Posts
         return total_comments
+
+    def get_top_post(self, username, password, target_username):
+        client = Client()
+        client.login(username, password)
+
+        user_id = client.user_id_from_username(target_username)
+        posts = client.user_medias(user_id, 50)  # Anzahl der abzurufenden Posts, hier auf 50 gesetzt
+
+        max_likes = -1
+        top_post = None
+
+        for post in posts:
+            if post.like_count > max_likes:
+                max_likes = post.like_count
+                top_post = post
+
+        return top_post
