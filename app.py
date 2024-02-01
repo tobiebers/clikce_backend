@@ -32,7 +32,7 @@ from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 from resources.DashboardAlex import FetchCardInfo
 from resources.DashboardAlex import FetchChart
 from resources.UserDashboard import FetchChartPie
-from resources.DashboardDavid import FetchRecentInteractions
+from resources.DashboardDavid import FetchRecentInteractions, FetchRecentInteractionButton
 #
 
 #Tobi
@@ -66,7 +66,7 @@ api.add_resource(SubmitAnswers, '/submit-answers')
 #David
 api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
 api.add_resource(FetchRefreshData, '/fetch-refresh-data')
-#
+api.add_resource(FetchRecentInteractionButton, '/fetch-interaction-button')
 #
 #
 #
