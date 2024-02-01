@@ -17,8 +17,8 @@ def collect_and_store_instagram_data():
         users = json.load(file)
 
     collected_data = []
-    total_likes = 0  # Variable zur Speicherung der Gesamtzahl der Likes
-    today = datetime.now().strftime('%y-%m-%d')
+    total_likes = 0
+    today = datetime.now().strftime('%d-%m')
 
     # Daten für jeden Benutzer sammeln
     for user in users:
@@ -33,18 +33,29 @@ def collect_and_store_instagram_data():
                 "followings": client.get_profile_followings_count(user['username'])
             }
             collected_data.append(user_data)
-            total_likes += user_data['likes']  # Summe der Likes aktualisieren
+            total_likes += user_data['likes']
 
     # Gesammelte Daten in einer neuen JSON-Datei speichern
     with open(json_output_file_path, 'w') as file:
         json.dump(collected_data, file)
 
-    # Summe der Likes in der chart_dashboard.json Datei speichern
+    # Vorhandene Daten aus chart_dashboard.json lesen
+    try:
+        with open(json_chart_output_file_path, 'r') as file:
+            existing_chart_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        existing_chart_data = []
+
+    # Fügen Sie die neuen Daten hinzu
     chart_data = {"date": today, "total_likes": total_likes}
+    existing_chart_data.append(chart_data)
+
+    # Aktualisierte Liste in die Datei schreiben
     with open(json_chart_output_file_path, 'w') as file:
-        json.dump(chart_data, file)
+        json.dump(existing_chart_data, file)
 
     print("JSON-Dateien erfolgreich aktualisiert.")
+
 
 
 
