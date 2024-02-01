@@ -30,7 +30,7 @@ from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 #Alex
 
 from resources.DashboardAlex import FetchCardInfo
-from resources.UserDashboard import FetchChart
+from resources.DashboardAlex import FetchChart
 from resources.UserDashboard import FetchChartPie
 from resources.DashboardDavid import FetchRecentInteractions
 #

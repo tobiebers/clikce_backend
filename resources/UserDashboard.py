@@ -12,24 +12,7 @@ from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
-class FetchChart(Resource):
-    def get(self):
-        # Annahme: Du hast bereits das Dictionary erstellt
-        datensatz = {
-            'visitors1': 40,
-            'visitors2': 80,
-            'visitors3': 20,
-            'visitors4': 40,
-            'visitors5': 60,
-            'visitors6': 0,
-            'visitors7': 100,
-            'visitors8': 20,
-            'visitors9': 60,
-            'visitors10': 40
-        }
 
-        # Verwende jsonify, um das Dictionary als JSON zu formatieren und zurückzugeben
-        return jsonify(datensatz)
 
 
 class FetchChartPie(Resource):
@@ -48,7 +31,6 @@ class FetchChartPie(Resource):
         return jsonify(datensatz)
 
 
-from flask import jsonify
 
 
 
