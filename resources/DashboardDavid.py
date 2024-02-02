@@ -3,6 +3,7 @@ from flask_restful import Resource
 import json
 from ratelimit import limits, sleep_and_retry
 from functions.main_instagrabi import InstagrabiClient
+from flask import request
 
 class FetchRecentInteractions(Resource):
     def get(self):
@@ -37,3 +38,31 @@ class FetchRecentInteractions(Resource):
 
         except Exception as e:
             return jsonify({"error": str(e)})
+
+
+
+class FetchRecentInteractionButton(Resource):
+    def get_user_selections(self):
+        # Hier sollten Sie die Benutzerauswahl aus dem Request erhalten
+        # Für das Beispiel verwende ich feste Werte
+        selected_account = request.args.get('account')
+        selected_account_group = request.args.get('account_group')
+        selected_interaction = request.args.get('interaction')
+
+        return selected_account, selected_account_group, selected_interaction
+
+    def find_interaction_data(self, account, account_group, interaction):
+        json_file_path = 'database_clone/alex_data.json'
+        with open(json_file_path, 'r') as file:
+            json_data = json.load(file)
+
+        for entry in json_data:
+            if entry['username'] == account_group and entry['platform'] == account:
+                return entry.get(interaction, 0)  # Gibt 0 zurück, falls der Schlüssel nicht existiert
+
+        return "Keine Daten gefunden"
+
+    def get(self):
+        account, account_group, interaction = self.get_user_selections()
+        interaction_value = self.find_interaction_data(account, account_group, interaction)
+        return jsonify({interaction: interaction_value})
