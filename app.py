@@ -73,7 +73,7 @@ api.add_resource(FetchRefreshData, '/fetch-refresh-data')
 
 #Tim
 api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
-#
+api.add_resource(Insta)
 #
 #
 
