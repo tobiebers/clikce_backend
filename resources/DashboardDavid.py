@@ -68,7 +68,7 @@ class FetchRecentInteractionButton(Resource):
 
         for entry in json_data:
             if entry['username'] == account_group and entry['platform'].lower() == account.lower():
-                # Achte auf die Groß- und Kleinschreibung des Interaktionsschlüssels
+                # Achte auf die Groß- und Kleinschreibung des Interaktionsschlüsselss
                 interaction_count = entry.get(interaction, "Keine Daten gefunden")
                 print("interaction:", interaction, interaction_count)
                 return interaction_count
