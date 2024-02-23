@@ -73,7 +73,7 @@ api.add_resource(FetchRecentInteractionButton, '/fetch-interaction-button')
 
 #Tim
 api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
-api.add_resource(Insta)
+#api.add_resource(Insta)
 #
 #
 

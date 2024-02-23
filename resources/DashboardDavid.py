@@ -1,8 +1,7 @@
 from flask import jsonify
 from flask_restful import Resource
 import json
-from ratelimit import limits, sleep_and_retry
-from functions.main_instagrabi import InstagrabiClient
+
 from flask import request
 
 class FetchRecentInteractions(Resource):
@@ -40,16 +39,27 @@ class FetchRecentInteractions(Resource):
             return jsonify({"error": str(e)})
 
 
-
 class FetchRecentInteractionButton(Resource):
-    def get_user_selections(self):
-        # Hier sollten Sie die Benutzerauswahl aus dem Request erhalten
-        # Für das Beispiel verwende ich feste Werte
-        selected_account = request.args.get('account')
-        selected_account_group = request.args.get('account_group')
-        selected_interaction = request.args.get('interaction')
+    def post(self):
+        # Extrahiere die JSON-Daten aus dem Body der Anfrage
+        json_data = request.get_json(force=True)
 
-        return selected_account, selected_account_group, selected_interaction
+        # Zum Debuggen: Ausgabe der empfangenen Daten
+        print("Empfangene Daten:", json_data)
+
+        # Sicherstellen, dass die benötigten Schlüssel vorhanden sind
+        if 'account' in json_data and 'accountGroup' in json_data and 'interaction' in json_data:
+            account = json_data['account']
+            account_group = json_data['accountGroup']
+            interaction = json_data['interaction']
+
+            # Rufe die Funktion find_interaction_data mit den empfangenen Daten auf
+            interaction_count = self.find_interaction_data(account, account_group, interaction.lower())
+
+            # Sende eine Antwort zurück mit den gefundenen Daten
+            return jsonify({'interaction_count': interaction_count})
+        else:
+            return jsonify({'error': 'Fehlende oder ungültige Daten in der Anfrage'}), 400
 
     def find_interaction_data(self, account, account_group, interaction):
         json_file_path = 'database_clone/alex_data.json'
@@ -57,12 +67,11 @@ class FetchRecentInteractionButton(Resource):
             json_data = json.load(file)
 
         for entry in json_data:
-            if entry['username'] == account_group and entry['platform'] == account:
-                return entry.get(interaction, 0)  # Gibt 0 zurück, falls der Schlüssel nicht existiert
+            if entry['username'] == account_group and entry['platform'].lower() == account.lower():
+                # Achte auf die Groß- und Kleinschreibung des Interaktionsschlüssels
+                interaction_count = entry.get(interaction, "Keine Daten gefunden")
+                print("interaction:", interaction, interaction_count)
+                return interaction_count
 
         return "Keine Daten gefunden"
 
-    def get(self):
-        account, account_group, interaction = self.get_user_selections()
-        interaction_value = self.find_interaction_data(account, account_group, interaction)
-        return jsonify({interaction: interaction_value})
