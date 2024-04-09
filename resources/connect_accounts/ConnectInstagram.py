@@ -22,35 +22,14 @@ class AccountDetails(Resource):
 
 
 class AddInstagramData(Resource):
+    def __init__(self):
+        self.service = InstagramAccountService('database_clone/instagram_data.json')
+
     def post(self):
-        # Empfangene Daten ausgeben
         new_data = request.get_json()
         print("Empfangene Daten:", new_data)  # Debug-Print der empfangenen Daten
-
-        # Standardmäßig 'bot' auf False setzen, falls nicht angegeben
-        new_data['bot'] = new_data.get('bot', False)
-
-        # Pfad zur Datei definieren
-        file_path = 'database_clone/instagram_data.json'
-
-        # Existierende Daten aus der Datei lesen oder eine leere Liste initialisieren
-        if os.path.exists(file_path):
-            try:
-                with open(file_path, 'r') as file:
-                    data = json.load(file)
-            except json.JSONDecodeError:
-                data = []
-        else:
-            data = []
-
-        # Neue Daten hinzufügen
-        data.append(new_data)
-
-        # Neue Daten in die Datei schreiben
-        with open(file_path, 'w') as file:
-            json.dump(data, file, indent=4)
-
-        return jsonify({'status': 'success'}), 200
+        result = self.service.add_account(new_data)
+        return jsonify(result), 200
 
 class DeleteAccount(Resource):
     def __init__(self):

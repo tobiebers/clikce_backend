@@ -31,23 +31,26 @@ class InstagramAccountService:
         except (FileNotFoundError, IOError, json.JSONDecodeError):
             return {'status': 'error', 'message': 'Fehler beim Aktualisieren der Daten'}, 500
 
-        ''' def add_account(self, new_data):
-             # Versuche, die vorhandene Datei zu öffnen und zu lesen, oder erstelle eine neue Liste
-             if os.path.exists(self.file_path):
-                 with open(self.file_path, 'r') as file:
-                     try:
-                         data = json.load(file)
-                     except json.JSONDecodeError:
-                         # Wenn ein JSONDecodeError auftritt, starte mit einer leeren Liste
-                         data = []
-             else:
-                 data = []
 
-             # Füge die neuen Daten zur Liste hinzu
-             data.append(new_data)
+    def add_account(self, new_data):
+        # Standardmäßig 'bot' auf False setzen, falls nicht angegeben
+        new_data['bot'] = new_data.get('bot', False)
 
-             # Schreibe die aktualisierte Liste zurück in die Datei
-             with open(self.file_path, 'w') as file:
-                 json.dump(data, file, indent=4)
+        # Existierende Daten aus der Datei lesen oder eine leere Liste initialisieren
+        if os.path.exists(self.file_path):
+            try:
+                with open(self.file_path, 'r') as file:
+                    data = json.load(file)
+            except json.JSONDecodeError:
+                data = []
+        else:
+            data = []
 
-             return {'status': 'success'}, 200'''
+        # Neue Daten hinzufügen
+        data.append(new_data)
+
+        # Neue Daten in die Datei schreiben
+        with open(self.file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {'status': 'success'}
