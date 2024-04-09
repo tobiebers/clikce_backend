@@ -5,6 +5,7 @@ from flask_cors import CORS
 from config import Config
 from flask_mail import Mail
 from functions.post_schedule import setup_scheduler
+from resources.CalendarResource import PostInstagramMedia, PlannedPosts, PlanPost, GetHashtagSets, CreateHashtagSet
 
 #import von den klassen
 from resources.UserResources import SubmitAnswers, FetchAnswers, ChangeAnswers
@@ -35,8 +36,8 @@ from resources.DashboardDavid import FetchRecentInteractions, FetchRecentInterac
 #
 
 #Tobi
-from resources.connect_accounts.ConnectInstagram import AccountDetails, AddInstagramData, PostInstagramMedia, \
-    DeleteAccount, FollowerCount, PlannedPosts, PlanPost, CreateHashtagSet, GetHashtagSets
+from resources.connect_accounts.ConnectInstagram import AccountDetails, AddInstagramData,  \
+    DeleteAccount, FollowerCount
 
 from resources.connect_accounts.account_functions import CreateCaption, ScheduleBulkPosts, CreateBot
 
@@ -57,9 +58,9 @@ mail = Mail(app)
 
 
 #hinzufügen der routen
-api.add_resource(SettingProfile, '/settingProfil')
-api.add_resource(Contact, '/contact')
-api.add_resource(SubmitAnswers, '/submit-answers')
+
+
+
 
 #David
 api.add_resource(FetchPerformingAccounts, '/fetch-performing-account')
@@ -82,39 +83,37 @@ api.add_resource(FetchChartPie, '/fetch-chart-data')
 api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
 
 #Tobi
-api.add_resource(FetchAnswers, '/fetch-answers')
-api.add_resource(ChangeAnswers, '/change-answers')
 
 
 
-
-
-api.add_resource(PostInstagramMedia, '/instagram-post-picture')
-api.add_resource(CreateCaption, '/create-caption')
 api.add_resource(FollowerCount, '/followers/<string:username>')
-api.add_resource(PlannedPosts, '/planned-posts')
-api.add_resource(PlanPost, '/plan-post')
-api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
-api.add_resource(CreateBot, '/create-bot')
-api.add_resource(CreateHashtagSet, '/create-hashtag-set')
-api.add_resource(GetHashtagSets, '/get-hashtag-sets')
+
+
 
 
 # User Resources
-#api.add_resource(FetchAnswers, '/fetch-answers')
-#api.add_resource(ChangeAnswers, '/change-answers')
-#api.add_resource(Settingprofil, '/settingProfil')
-#api.add_resource(Contact, '/contact')
-#api.add_resource(SubmitAnswers, '/submit-answers')
+api.add_resource(FetchAnswers, '/fetch-answers')
+api.add_resource(ChangeAnswers, '/change-answers')
+api.add_resource(SettingProfile, '/settingProfil')
+api.add_resource(Contact, '/contact')
+api.add_resource(SubmitAnswers, '/submit-answers')
 
 # Acc-Man
 api.add_resource(DeleteAccount, '/delete-account')
-api.add_resource(AddInstagramData, '/instagram-profile-data')
+api.add_resource(AddInstagramData, '/instagram-add-profile-data')
 api.add_resource(AccountDetails, '/instagram-profiles')
 
+# Calandar
+api.add_resource(PostInstagramMedia, '/instagram-post-picture')
+api.add_resource(CreateCaption, '/create-caption')
+api.add_resource(PlannedPosts, '/planned-posts')
+api.add_resource(PlanPost, '/plan-post')
+api.add_resource(ScheduleBulkPosts, '/schedule-bulk-posts')
+api.add_resource(CreateHashtagSet, '/create-hashtag-set')
+api.add_resource(GetHashtagSets, '/get-hashtag-sets')
+api.add_resource(CreateBot, '/create-bot')
 
 
-# Calandar resources
 
 
 

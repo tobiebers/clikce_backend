@@ -2,7 +2,7 @@ from flask import jsonify
 from flask_restful import Resource
 import json
 from ratelimit import limits, sleep_and_retry
-from Classes.Instagrabi_service import InstagrabiClient
+from Classes.Instagrapi_service import InstagrabiClient
 from datetime import datetime
 
 @sleep_and_retry
