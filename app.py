@@ -20,8 +20,8 @@ from resources.DashboardAlex import FetchPerformingAccounts, FetchRefreshData
 #
 
 #Tim
-from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 from resources.Analytics import InstagramProfileData, SaveWeeklyData, SelectAccount
+from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 #
 #
 #
@@ -71,10 +71,10 @@ api.add_resource(FetchRecentInteractionButton, '/fetch-interaction-button')
 #
 
 #Tim
-api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
-api.add_resource(SaveWeeklyData, '/save-weekly-data')
 api.add_resource(InstagramProfileData, '/instagram-profile-data')
-api.add_resource(SelectAccount, '/select-account/<string:username>')#
+api.add_resource(SaveWeeklyData, '/save-weekly-data')
+api.add_resource(SelectAccount, '/select-account/<string:username>')
+api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
 
 #Alex
 api.add_resource(FetchCardInfo, '/fetch-card-info')
