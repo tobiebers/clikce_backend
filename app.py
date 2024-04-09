@@ -4,8 +4,8 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 from config import Config
 from flask_mail import Mail
-
 from functions.post_schedule import setup_scheduler
+
 #import von den klassen
 from resources.UserResources import Login, SubmitAnswers, FetchAnswers, ChangeAnswers
 from resources.UserResources import SettingProfile
@@ -20,9 +20,8 @@ from resources.DashboardAlex import FetchPerformingAccounts, FetchRefreshData
 #
 
 #Tim
+from resources.Analytics import InstagramProfileData, SaveWeeklyData, SelectAccount
 from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
-#
-#
 #
 #
 #
@@ -72,10 +71,10 @@ api.add_resource(FetchRecentInteractionButton, '/fetch-interaction-button')
 #
 
 #Tim
+api.add_resource(InstagramProfileData, '/instagram-profile-data')
+api.add_resource(SaveWeeklyData, '/save-weekly-data')
+api.add_resource(SelectAccount, '/select-account/<string:username>')
 api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
-#api.add_resource(Insta)
-#
-#
 
 #Alex
 api.add_resource(FetchCardInfo, '/fetch-card-info')
