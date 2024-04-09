@@ -1,52 +1,55 @@
 from instagrapi import Client
+from instagrapi.exceptions import ClientError
 
 class InstagrabiClient:
     def __init__(self, username, password):
         self.client = Client()
         try:
             self.client.login(username, password)
-        except Exception as e:
+        except ClientError as e:
             print(f"Login failed: {e}")
 
     def get_user_id(self, username):
         return self.client.user_id_from_username(username)
 
-    def get_profile_followers_count(self, username):
-        user_id = self.get_user_id(username)
-        follower_ids = self.client.user_followers(user_id)
-        return len(follower_ids)
-
-    def get_profile_followings_count(self, username):
-        user_id = self.get_user_id(username)
-        following_ids = self.client.user_following(user_id)
-        return len(following_ids)
-
+    def get_profile_info(self, username):
+        """Holt grundlegende Profilinformationen."""
+        user_info = self.client.user_info_by_username(username)
+        return {
+            "profile_pic_url": user_info.profile_pic_url,
+            "full_name": user_info.full_name,
+            "username": user_info.username,
+            "followers_count": user_info.follower_count,
+            "followings_count": user_info.following_count,
+            "total_likes": self.get_total_likes(username),
+        }
 
     def get_total_likes(self, username):
-        user_id = self.get_user_id(username)  # Benutzer-ID abrufen
-        posts = self.client.user_medias(user_id, amount=0)  # Alle Posts abrufen
-        total_likes = sum(post.like_count for post in posts)  # Summe der Likes aller Posts
-        return total_likes
+        """Holt die Gesamtanzahl der Likes für alle Posts eines Benutzers."""
+        user_id = self.get_user_id(username)
+        posts = self.client.user_medias(user_id, amount=0)
+        return sum(post.like_count for post in posts)
 
     def get_total_comments(self, username):
-        user_id = self.get_user_id(username)  # Benutzer-ID abrufen
-        posts = self.client.user_medias(user_id, amount=0)  # Alle Posts abrufen
-        total_comments = sum(post.comment_count for post in posts)  # Summe der Kommentare aller Posts
-        return total_comments
+        """Holt die Gesamtanzahl der Kommentare für alle Posts eines Benutzers."""
+        user_id = self.get_user_id(username)
+        posts = self.client.user_medias(user_id, amount=0)
+        return sum(post.comment_count for post in posts)
 
-    def get_top_post(self, username, password, target_username):
-        client = Client()
-        client.login(username, password)
+    def get_top_post_details(self, username):
+        """Holt Details des Posts mit den meisten Likes."""
+        user_id = self.get_user_id(username)
+        posts = self.client.user_medias(user_id, amount=50)
+        top_post = max(posts, key=lambda post: post.like_count, default=None)
 
-        user_id = client.user_id_from_username(target_username)
-        posts = client.user_medias(user_id, 50)  # Anzahl der abzurufenden Posts, hier auf 50 gesetzt
-
-        max_likes = -1
-        top_post = None
-
-        for post in posts:
-            if post.like_count > max_likes:
-                max_likes = post.like_count
-                top_post = post
-
-        return top_post
+        if top_post:
+            top_comment = max(top_post.comments, key=lambda comment: comment.like_count, default=None)
+            return {
+                "post_image_url": top_post.media_url,
+                "description": top_post.caption_text,
+                "hashtags": top_post.caption_hashtags,
+                "likes": top_post.like_count,
+                "comments_count": top_post.comment_count,
+                "top_comment": top_comment.text if top_comment else None
+            }
+        return None
