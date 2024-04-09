@@ -1,5 +1,5 @@
 import json
-from functions.main_instagrabi import InstagrabiClient
+from Classes.Instagrabi_service import InstagrabiClient
 
 # Pfadangaben zu den Dateien
 INSTAGRAM_CREDENTIALS_FILE = 'database_clone/instagram_data.json'

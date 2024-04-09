@@ -7,70 +7,35 @@ import json
 import glob
 from instabot import Bot
 
+from Classes.InstagramAccountService import InstagramAccountService
 from functions.post_schedule import get_credentials, get_image_path, load_user_data
 
 from functions.main_instaloader import InstaloaderClient
 
 
 class AccountDetails(Resource):
+    def __init__(self):
+        self.service = InstagramAccountService('database_clone/instagram_data.json')
+
     def get(self):
-        file_path = 'database_clone/instagram_data.json'
-        try:
-            with open(file_path, 'r') as file:
-                data = json.load(file)
-                accounts = [{'username': user['username'], 'platform': user.get('platform', 'Unknown')}
-                            for user in data if 'username' in user]
-                return {'accounts': accounts}, 200
-        except (FileNotFoundError, json.JSONDecodeError):
-            return {'accounts': []}, 200
-
-
+        return self.service.get_accounts()
 
 class AddInstagramData(Resource):
+    def __init__(self):
+        self.service = InstagramAccountService('database_clone/instagram_data.json')
+
     def post(self):
         new_data = request.get_json()
-
-        # Standardmäßig 'bot' auf False setzen
-        new_data['bot'] = False
-
-        file_path = 'database_clone/instagram_data.json'
-
-        # Existierende Daten aus der Datei lesen oder eine leere Liste initialisieren
-        if os.path.exists(file_path):
-            try:
-                with open(file_path, 'r') as file:
-                    data = json.load(file)
-            except json.JSONDecodeError:
-                data = []
-        else:
-            data = []
-
-        # Neue Daten hinzufügen
-        data.append(new_data)
-
-        # Neue Daten in der Datei speichern
-        with open(file_path, 'w') as file:
-            json.dump(data, file, indent=4)
-
-        return {'status': 'success'}, 200
+        return self.service.add_account(new_data)
 
 class DeleteAccount(Resource):
+    def __init__(self):
+        self.service = InstagramAccountService('database_clone/instagram_data.json')
+
     def post(self):
-        username_to_delete = request.get_json().get('username')
-        file_path = 'database_clone/instagram_data.json'
+        username = request.get_json().get('username')
+        return self.service.delete_account(username)
 
-        try:
-            with open(file_path, 'r') as file:
-                data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
-            return {'status': 'error', 'message': 'Datei nicht gefunden oder ungültiges JSON'}, 500
-
-        data = [account for account in data if account.get('username') != username_to_delete]
-
-        with open(file_path, 'w') as file:
-            json.dump(data, file, indent=4)
-
-        return {'status': 'success'}, 200
 
 
 

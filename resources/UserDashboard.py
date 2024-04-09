@@ -1,14 +1,9 @@
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
-from ratelimit import sleep_and_retry, limits
+from flask import jsonify
+from flask_restful import Resource
 
-from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
-import json
 
-from functions.main_instagrabi import InstagrabiClient
 #from ratelimit import limits, sleep_and_retry
-from functions.main_instaloader import InstaloaderClient
 
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 

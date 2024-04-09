@@ -87,9 +87,8 @@ api.add_resource(ChangeAnswers, '/change-answers')
 
 
 
-api.add_resource(DeleteAccount, '/delete-account')
-api.add_resource(AccountDetails, '/instagram-profiles')
-api.add_resource(AddInstagramData, '/instagram-profile-data')
+
+
 api.add_resource(PostInstagramMedia, '/instagram-post-picture')
 api.add_resource(CreateCaption, '/create-caption')
 api.add_resource(FollowerCount, '/followers/<string:username>')
@@ -107,6 +106,15 @@ api.add_resource(GetHashtagSets, '/get-hashtag-sets')
 #api.add_resource(Settingprofil, '/settingProfil')
 #api.add_resource(Contact, '/contact')
 #api.add_resource(SubmitAnswers, '/submit-answers')
+
+# Acc-Man
+api.add_resource(DeleteAccount, '/delete-account')
+api.add_resource(AddInstagramData, '/instagram-profile-data')
+api.add_resource(AccountDetails, '/instagram-profiles')
+
+
+
+# Calandar resources
 
 
 
