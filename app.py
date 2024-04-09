@@ -71,7 +71,7 @@ api.add_resource(FetchRecentInteractionButton, '/fetch-interaction-button')
 #
 
 #Tim
-api.add_resource(InstagramProfileData, '/instagram-profile-data')
+api.add_resource(InstagramProfileData, '/save-instagram-profile-data')
 api.add_resource(SaveWeeklyData, '/save-weekly-data')
 api.add_resource(SelectAccount, '/select-account/<string:username>')
 api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
