@@ -4,5 +4,11 @@
         "password": "Tobias1303",
         "platform": "Instagram",
         "bot": false
+    },
+    {
+        "username": "hallo",
+        "password": "hallo",
+        "platform": "Instagram",
+        "bot": false
     }
 ]
