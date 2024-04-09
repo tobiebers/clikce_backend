@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
+
+from Classes.UserService import UserService
 from database_clone import DataBase
 from database_clone.DataBase import JsonDatabase
 from functions.main_instaloader import InstaloaderClient
@@ -7,65 +9,51 @@ import json
 db = JsonDatabase('database_clone/UserQuestionsDataBase.json')
 
 class Login(Resource):
+    def __init__(self):
+        self.user_service = UserService(db)
+
     def post(self):
         data = request.json
-        email = data.get('email')  # Empfängt die E-Mail aus dem Request
-        password = data.get('password')  # Empfängt das Passwort aus dem Request
+        result = self.user_service.login(data.get('email'), data.get('password'))
+        return result, 200
 
-        print(f"Empfangene E-Mail: {email}")
-        print(f"Empfangenes Passwort: {password}")
-
-        return {'message': 'Daten empfangen', 'data': data}, 200
 
 class SubmitAnswers(Resource):
+    def __init__(self):
+        self.user_service = UserService(db)
+
     def post(self):
         data = request.get_json()
-        print("Erhaltene Antworten:", data)
-        db.add_answer(data)  # Speichern der Antwort
-        print("Erhaltene Antworten:", data)
-        return {'message': 'Antworten erfolgreich erhalten'}, 200
+        result = self.user_service.submit_answers(data)
+        return result, 200
 
 class ChangeAnswers(Resource):
+    def __init__(self):
+        self.user_service = UserService(db)
+
     def post(self):
         data = request.get_json()
-        key = data.get('key')  # Der Schlüssel für die Antwort (z.B. "0", "1", "2")
-        new_answer = data.get('answer')  # Der neue Antworttext
+        result = self.user_service.change_answer(data.get('key'), data.get('answer'))
+        return result, 200
 
-        if key is not None and new_answer is not None:
-            db.update_answer(key, new_answer)
-            return {'message': 'Antwort erfolgreich aktualisiert'}, 200
-        else:
-            return {'message': 'Fehlende Daten'}, 400
+class SettingProfile(Resource):
+    def __init__(self):
+        self.user_service = UserService(db)
 
-
-class Settingprofil(Resource):
     def post(self):
         data = request.json
-
-        firstname = data.get('firstname')  # Empfängt die E-Mail aus dem Request
-        lastname= data.get('lastname')
-        branche = data.get('branche')  # Empfängt die E-Mail aus dem Request
-        language= data.get('language')
-        password = data.get('password')  # Empfängt die E-Mail aus dem Request
-        goals = data.get('goals')
-        description = data.get('description')
-
-
-        print(f"Empfangene vorname: {firstname}")
-        print(f"Empfangenes nachname: {lastname}")
-        print(f"Empfangene branche: {branche}")
-        print(f"Empfangenes sprache: {language}")
-        print(f"Empfangene password: {password}")
-        print(f"Empfangenes ziele: {goals}")
-        print(f"Empfangene beschreibung: {description}")
+        result = self.user_service.update_profile(data.get('firstname'), data.get('lastname'), data.get('branche'), data.get('language'), data.get('password'), data.get('goals'), data.get('description'))
+        return result, 200
 
 
 
-        return {'message': 'Daten empfangen', 'data': data}, 200
 
 class FetchAnswers(Resource):
+    def __init__(self):
+        self.user_service = UserService(db)
+
     def get(self):
-        data = db.get_all_answers()
+        data = self.user_service.fetch_answers()
         return jsonify(data)
 
 
