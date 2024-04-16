@@ -1,9 +1,6 @@
 import json
 import os
 
-
-
-
 class JsonDatabase:
     def __init__(self, filename):
         self.filename = filename
@@ -11,7 +8,17 @@ class JsonDatabase:
 
     def initialize_database(self):
         if not os.path.exists(self.filename):
-            self.write_data([])  # Initialisiere mit leerem Array
+            try:
+                self.write_data([])  # Initialisiere mit leerem Array
+            except FileNotFoundError as e:
+                # Ausgabe des aktuellen Arbeitsverzeichnisses und des erwarteten Dateipfads
+                current_dir = os.getcwd()
+                expected_path = os.path.abspath(self.filename)
+                print(f"Fehler: {e}")
+                print(f"Das aktuelle Arbeitsverzeichnis ist {current_dir}")
+                print(f"Erwarteter vollständiger Pfad der Datei: {expected_path}")
+                print("Bitte überprüfe, ob der Pfad korrekt ist und die Datei existiert.")
+                raise
 
     def read_data(self):
         try:
