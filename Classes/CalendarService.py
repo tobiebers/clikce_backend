@@ -6,6 +6,11 @@ class CalendarService:
     def __init__(self):
         self.post_directory = 'static'
         self.instagram_data_file = 'database_clone/instagram_data.json'
+        self.planned_posts_file = 'database_clone/planned_posts.json'  # Pfad zur Datei mit geplanten Posts
+        self.hashtag_sets_file = 'database_clone/hashtag_sets.json'    # Pfad zur Datei mit Hashtag-Sets
+
+
+
 
     def post_instagram_media(self, uploaded_file, caption, accounts):
         # Temporären Pfad der Datei ausgeben
