@@ -109,7 +109,7 @@ class FetchPerformingAccounts(Resource):
         return jsonify({
             'nameText': "Name: " + max_likes_username,
             'likesText': "Likes: " + str(max_likes),
-            'profilePicture': 'Placeholder.jpg'
+            'profilePicture': ''
         })
 
 
