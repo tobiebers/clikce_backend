@@ -1,9 +1,10 @@
 from flask import request, jsonify
 from flask_restful import Resource
 from ratelimit import sleep_and_retry, limits
-from Classes.Analytics_Class import Analytics  # Stellen Sie sicher, dass Sie den korrekten Modulnamen verwenden
+from Classes.Analytics_Class import Analytics
+import json
 
-analytics = Analytics()  # Instanz der Analytics-Klasse
+analytics = Analytics()
 
 class InstagramProfileData(Resource):
     @sleep_and_retry
@@ -43,3 +44,29 @@ class SelectAccount(Resource):
             return {'message': 'Profilinformationen nicht gefunden'}, 404
 
         return jsonify(profile_info)
+
+class FetchLikesData(Resource):
+    @sleep_and_retry
+    @limits(calls=10, period=3600)
+    def get(self):
+        try:
+            with open('database_clone/analytics_chart_information_likes.json', 'r') as file:
+                likes_data = json.load(file)
+            return jsonify(likes_data)
+        except FileNotFoundError:
+            return {'message': 'Likes-Daten nicht gefunden'}, 404
+        except json.JSONDecodeError:
+            return {'message': 'Fehler beim Lesen der Likes-Daten'}, 500
+
+class FetchFollowerData(Resource):
+    @sleep_and_retry
+    @limits(calls=10, period=3600)
+    def get(self):
+        try:
+            with open('database_clone/analytics_user_information_follower.json', 'r') as file:
+                follower_data = json.load(file)
+            return jsonify(follower_data)
+        except FileNotFoundError:
+            return {'message': 'Follower-Daten nicht gefunden'}, 404
+        except json.JSONDecodeError:
+            return {'message': 'Fehler beim Lesen der Follower-Daten'}, 500
