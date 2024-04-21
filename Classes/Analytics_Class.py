@@ -54,3 +54,8 @@ class Analytics:
         # Platzhalter für die Logik zum Speichern wöchentlicher Daten
         # Hier kann später die Implementierung hinzugefügt werden
         pass
+
+
+
+    #def get_bot_logs(self):
+        #soll die daten aus dem logfile entnehmen und darstellen
