@@ -1,0 +1,30 @@
+[
+    {
+        "timestamp": "2024-01-22 20:14:22",
+        "message": "erfolgreich eingeloggt"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:31",
+        "message": "Nutzer 49734270184 gefolgt"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:33",
+        "message": "Beitrag geliked 3283022577109074530_49734270184"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:37",
+        "message": "KI-Kommentar gesendet \"Stunning photo! \u2728\" an Post 3283022577109074530_49734270184"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:37",
+        "message": "Fehler beim Senden des KI-Kommentars: 'charmap' codec can't encode character '\\u2728' in position 39: character maps to <undefined>"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:41",
+        "message": "KI-Nachricht Hey there! Just stumbled upon your profile and couldn't help but be intrigued. Your feed looks amazing! Mind if we connect and share a few laughs along the way? \ud83d\ude04 gesendet an Nutzer 49734270184"
+    },
+    {
+        "timestamp": "2024-01-22 20:14:41",
+        "message": "Fehler beim Senden der KI-Nachricht: 'charmap' codec can't encode character '\\U0001f604' in position 174: character maps to <undefined>"
+    }
+]

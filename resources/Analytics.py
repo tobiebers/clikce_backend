@@ -70,3 +70,22 @@ class FetchFollowerData(Resource):
             return {'message': 'Follower-Daten nicht gefunden'}, 404
         except json.JSONDecodeError:
             return {'message': 'Fehler beim Lesen der Follower-Daten'}, 500
+
+
+class LogResource(Resource):
+    def get(self):
+        log_file_path = 'log_file.json'  # Pfad zur JSON-Log-Datei
+
+        # Lese die JSON-Datei
+        try:
+            with open(log_file_path, 'r', encoding='utf-8') as file:
+                log_data = json.load(file)  # Liest direkt die Liste ein
+        except FileNotFoundError:
+            return {'error': 'Log file not found'}, 404
+        except json.JSONDecodeError:
+            return {'error': 'Error decoding JSON'}, 500
+        except Exception as e:
+            return {'error': str(e)}, 500
+
+        # Gibt die Liste der Log-Einträge zurück
+        return {'logs': log_data}
