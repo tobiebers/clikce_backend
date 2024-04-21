@@ -29,7 +29,7 @@ class AddInstagramData(Resource):
         new_data = request.get_json()
         print("Empfangene Daten:", new_data)  # Debug-Print der empfangenen Daten
         result = self.service.add_account(new_data)
-        return jsonify(result), 200
+        return {'status': 'success'}, 200
 
 class DeleteAccount(Resource):
     def __init__(self):

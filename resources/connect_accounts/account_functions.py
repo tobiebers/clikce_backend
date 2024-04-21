@@ -2,15 +2,13 @@ from datetime import timedelta, datetime
 import threading
 
 
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
-import requests
-import json
+from flask import request, jsonify
+from flask_restful import Resource
 import os
 import openai
 import json
 
-from functions.InstagramBot import  execute_bot_actions, run_bot_in_background
+from Classes.InstagramBot import run_bot_in_background
 
 
 class CreateCaption(Resource):
