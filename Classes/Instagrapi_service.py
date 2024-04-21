@@ -42,14 +42,30 @@ class InstagrabiClient:
         posts = self.client.user_medias(user_id, amount=50)
         top_post = max(posts, key=lambda post: post.like_count, default=None)
 
-        if top_post:
-            top_comment = max(top_post.comments, key=lambda comment: comment.like_count, default=None)
+        if not top_post:
+            # Kein Top-Post gefunden, gebe eine Struktur mit None-Werten zurück
             return {
-                "post_image_url": top_post.media_url,
-                "description": top_post.caption_text,
-                "hashtags": top_post.caption_hashtags,
-                "likes": top_post.like_count,
-                "comments_count": top_post.comment_count,
-                "top_comment": top_comment.text if top_comment else None
+                "post_image_url": None,
+                "description": None,
+                "hashtags": [],
+                "likes": 0,
+                "comments_count": 0,
+                "top_comment": None
             }
-        return None
+
+        # Überprüfe, ob das top_post-Objekt die notwendigen Attribute hat
+        top_comment_text = None
+        if hasattr(top_post, 'comments') and top_post.comments:
+            # Extrahiere den Top-Kommentar, falls vorhanden
+            top_comment = max(top_post.comments, key=lambda comment: comment.like_count, default=None)
+            top_comment_text = top_comment.text if top_comment else None
+
+        # Bereite die Daten vor, auch wenn einige fehlen könnten
+        return {
+            "post_image_url": getattr(top_post, 'media_url', None),
+            "description": getattr(top_post, 'caption_text', ''),
+            "hashtags": getattr(top_post, 'caption_hashtags', []),
+            "likes": getattr(top_post, 'like_count', 0),
+            "comments_count": getattr(top_post, 'comment_count', 0),
+            "top_comment": top_comment_text
+        }
