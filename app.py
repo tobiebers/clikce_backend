@@ -31,8 +31,7 @@ from resources.connect_accounts.ConnectTikTok import TikTokAccountDetails
 
 from resources.DashboardAlex import FetchCardInfo
 from resources.DashboardAlex import FetchChart
-from resources.UserDashboard import FetchChartPie
-from resources.DashboardDavid import FetchRecentInteractions, FetchRecentInteractionButton
+from resources.DashboardAlex import FetchRecentInteractions, FetchRecentInteractionButton
 #
 
 #Tobi
@@ -79,7 +78,6 @@ api.add_resource(TikTokAccountDetails, '/tiktok-profiles')
 #Alex
 api.add_resource(FetchCardInfo, '/fetch-card-info')
 api.add_resource(FetchChart, '/fetch-chart')
-api.add_resource(FetchChartPie, '/fetch-chart-data')
 api.add_resource(FetchRecentInteractions, '/fetch-recent-interactions')
 
 #Tobi
