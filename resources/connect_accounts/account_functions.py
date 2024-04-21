@@ -18,7 +18,7 @@ class CreateCaption(Resource):
 
 
 
-        openai.api_key = "test"
+        openai.api_key = "testt"
 
         # Informationen über Ihr Unternehmen
         info = "Ich bin Influencer"

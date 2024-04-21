@@ -49,7 +49,7 @@ class InstagramBot:
 
     def generate_ki_comment(self):
         # Stelle sicher, dass der API-Key sicher gehandhabt wird
-        openai.api_key = "test"
+        openai.api_key = "testt"
 
         # Nachrichtenstruktur definieren
         nachrichten = [
