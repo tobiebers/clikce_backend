@@ -1,13 +1,19 @@
 [
     {
-        "username": "emma_sophie86",
-        "password": "aL.8600",
-        "platform": "",
+        "username": "Account1",
+        "password": "asdsadsd",
+        "platform": "Instagram",
         "bot": false
     },
     {
-        "username": "sdsad",
-        "password": "asdasd",
+        "username": "Account 2",
+        "password": "asassf",
+        "platform": "Instagram",
+        "bot": false
+    },
+    {
+        "username": "Hype.ful",
+        "password": "Tobias1303",
         "platform": "Instagram",
         "bot": false
     }
