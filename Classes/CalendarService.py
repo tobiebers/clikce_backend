@@ -25,9 +25,7 @@ class CalendarService:
         print("Caption:", caption)
         print("Accounts:", accounts)
 
-        # Hier könnte die Logik zur Interaktion mit Instagram-APIs stehen
-        # Zum Beispiel das Posten des Bildes auf Instagram
-        # Dies ist aktuell simuliert durch Ausgabe auf der Konsole
+
 
         # Für jeden Account in der Liste
         for account_name in accounts:
