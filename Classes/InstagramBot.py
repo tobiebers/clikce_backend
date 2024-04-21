@@ -38,12 +38,12 @@ class InstagramBot:
 
     def log_and_print(self, message):
         try:
-            with open("log_file.txt", "a", encoding="utf-8") as file:
+            with open("log_file.json", "a", encoding="utf-8") as file:
                 file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
         except UnicodeEncodeError:
             # Ignoriere den Fehler und protokolliere die Nachricht ohne Emojis
             cleaned_message = message.encode('ascii', 'ignore').decode('ascii')
-            with open("log_file.txt", "a", encoding="utf-8") as file:
+            with open("log_file.json", "a", encoding="utf-8") as file:
                 file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {cleaned_message}\n")
         print(message)
 
