@@ -36,6 +36,18 @@ class InstagrabiClient:
         posts = self.client.user_medias(user_id, amount=0)
         return sum(post.comment_count for post in posts)
 
+    def get_profile_followers_count(self, username):
+        """Holt die Anzahl der Follower eines Benutzers."""
+        user_id = self.get_user_id(username)
+        user_info = self.client.user_info(user_id)
+        return user_info.follower_count
+
+    def get_profile_followings_count(self, username):
+        """Holt die Anzahl der Personen, denen ein Benutzer folgt."""
+        user_id = self.get_user_id(username)
+        user_info = self.client.user_info(user_id)
+        return user_info.following_count
+
     def get_top_post_details(self, username):
         """Holt Details des Posts mit den meisten Likes."""
         user_id = self.get_user_id(username)
@@ -69,3 +81,4 @@ class InstagrabiClient:
             "comments_count": getattr(top_post, 'comment_count', 0),
             "top_comment": top_comment_text
         }
+
