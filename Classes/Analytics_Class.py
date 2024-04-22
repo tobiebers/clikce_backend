@@ -80,3 +80,5 @@ class Analytics:
         except json.JSONDecodeError:
             with open(file_path, 'w') as file:
                 json.dump([entry], file, indent=4)
+
+
