@@ -1,7 +1,19 @@
 [
     {
-        "username": "emma_sophie86",
-        "password": "aL.8600",
+        "username": "davidoojii",
+        "password": "asdads",
+        "platform": "Instagram",
+        "bot": false
+    },
+    {
+        "username": "al_8600",
+        "password": "asdads",
+        "platform": "Instagram",
+        "bot": false
+    },
+    {
+        "username": "tmn_hf",
+        "password": "asdads",
         "platform": "Instagram",
         "bot": false
     }

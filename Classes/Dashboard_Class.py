@@ -89,7 +89,6 @@ class Dashboard:
             return {
                 'nameText': "Name: " + max_likes_username,
                 'likesText': "Likes: " + str(max_likes),
-                'profilePicture': ''
             }
         except Exception as e:
             raise RuntimeError(f"Fehler beim Lesen der Top-Performing-Accounts: {str(e)}")
